@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Fire
+  - Wreckage
+  - VerifyAim
   layers:
   - Default
   - TransparentFX
@@ -40,4 +44,37 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 1277439221
+    locked: 0
+  - name: Submerse
+    uniqueID: 1762715263
+    locked: 0
+  - name: Water
+    uniqueID: 1923852845
+    locked: 0
+  - name: FloatingWater
+    uniqueID: 3913854665
+    locked: 0
+  - name: Interface
+    uniqueID: 3507614433
+    locked: 0
+  - name: Land
+    uniqueID: 1481659985
+    locked: 0
+  - name: Ship
+    uniqueID: 1355474651
+    locked: 0
+  - name: Fire
+    uniqueID: 1510002887
+    locked: 0
+  - name: Sky
+    uniqueID: 434540597
+    locked: 0
+  - name: Light
+    uniqueID: 1323948031
+    locked: 0
+  - name: UI GUI
+    uniqueID: 3096483203
     locked: 0

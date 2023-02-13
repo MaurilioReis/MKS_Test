@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 939682505
+  m_SortingLayerID: 1355474651
   m_SortingLayer: 7
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 6e04ce2892eee33438151cb1e05ea89f, type: 3}
@@ -202,7 +202,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 939682505
+  m_SortingLayerID: 1355474651
   m_SortingLayer: 7
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 03413ab49d97f8049a0be4b7385f5bf4, type: 3}
@@ -286,7 +286,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 939682505
+  m_SortingLayerID: 1355474651
   m_SortingLayer: 7
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: abfa1eb2b11e2b74bbb9a1ff3e09a6d0, type: 3}
@@ -5121,8 +5121,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1836812063
-  m_SortingLayer: 4
+  m_SortingLayerID: 1923852845
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5258,7 +5258,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 939682505
+  m_SortingLayerID: 1355474651
   m_SortingLayer: 7
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 19e8cc3d06bec6f478fb78e7d34c4717, type: 3}
@@ -5442,7 +5442,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 939682505
+  m_SortingLayerID: 1355474651
   m_SortingLayer: 7
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 8e32aa204803e31448c0ceb890f72d98, type: 3}
@@ -10244,8 +10244,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1836812063
-  m_SortingLayer: 4
+  m_SortingLayerID: 1923852845
+  m_SortingLayer: 3
   m_SortingOrder: 10
   m_RenderMode: 0
   m_MeshDistribution: 0

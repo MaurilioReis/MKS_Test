@@ -12,7 +12,7 @@ public class AttributesBase : MonoBehaviour
     [Space(5)]
 
     [Range(0, 10)]
-    public float speed = 2;
+    public float speed = 5;
 
     [Space(5)]
 
