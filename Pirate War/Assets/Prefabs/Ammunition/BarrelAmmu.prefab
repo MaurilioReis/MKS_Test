@@ -154,7 +154,7 @@ MonoBehaviour:
   - {fileID: 303101540322879502, guid: 0a01165dbcb69284eb5a095b5826878a, type: 3}
   - {fileID: 303101540322879502, guid: 0a01165dbcb69284eb5a095b5826878a, type: 3}
   - {fileID: 2620139319855851802, guid: 289fe621ac62a80498c726d24a8ba52c, type: 3}
-  - {fileID: 2620139319855851802, guid: 289fe621ac62a80498c726d24a8ba52c, type: 3}
+  - {fileID: 186151141044234856, guid: 74453eac4d5c71d499175fe8552b4bbe, type: 3}
   spawnsEndDistance: []
   parentNull: []
   colliderDisabled:

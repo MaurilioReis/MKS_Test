@@ -23,17 +23,21 @@ public class FadeLight : MonoBehaviour
     public float timeWait = 0.5f;
     public float timeFadeOut = 0.5f;
 
+    [Space(10)]
+    [Header("End fade")]
     public bool DestroyGameObject = true;
+    public bool DisabledScript = false;
     public bool DisabledLight = false;
 
-    // Stage 0 (Stop) // Stage 1 (Start and Fade In) // Stage 2 (timer Wait) // Stage 3 (Time fade out to stop) // Stage 4 (End)
+    // Stage 0 (Stop) // Stage 1 (Start and Fade In) // Stage 2 (timer Wait) // Stage 3 (Time fade out to stop)
     private int stage = 0;
 
-    private void Start()
+
+    public void OnEnable()
     {
+        _light.enabled = true;
         _light.intensity = 0;
         StartCoroutine("StartControllerLight");
-        InvokeRepeating("AltereLight", 0, 0.1f);
     }
 
     public IEnumerator StartControllerLight()
@@ -52,27 +56,38 @@ public class FadeLight : MonoBehaviour
 
         yield return new WaitForSeconds(timeFadeOut); //End
 
-        if (DestroyGameObject)
-        {
-            Destroy(gameObject);
-        }
-        else if (DisabledLight)
-        {
-            _light.enabled = false;
-            enabled = false;
-        }
+        stage = 4;
     }
 
-    private void AltereLight()
+    private void FixedUpdate()
     {
         if(stage == 1) //Fade in
         {
-            _light.intensity += maxIntensity / 10;
+            _light.intensity += Time.deltaTime * maxIntensity / timeFadeIn;
         }
 
-        if (stage == 3) //Fade out
+        if (stage == 3 || stage == 4) //Fade out
         {
-            _light.intensity -= maxIntensity / 10;
+            _light.intensity -= Time.deltaTime * maxIntensity / timeFadeOut;
+        }
+
+        if (stage == 4 && _light.intensity <= 0)
+        {
+            if (DestroyGameObject)
+            {
+                Destroy(gameObject);
+            }
+
+            if (DisabledLight)
+            {
+                _light.enabled = false;
+            }
+
+            if (DisabledScript)
+            {
+                stage = 0;
+                enabled = false;
+            }
         }
     }
 }

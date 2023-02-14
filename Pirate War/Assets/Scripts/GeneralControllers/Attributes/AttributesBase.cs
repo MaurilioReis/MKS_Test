@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Animations;
+using TMPro;
 
 public class AttributesBase : MonoBehaviour
 {
@@ -44,6 +45,11 @@ public class AttributesBase : MonoBehaviour
     public GameObject prefabBar;
     GameObject instantiateLifeBar;
 
+
+    [Space(10)]
+    [Header("ValueDmg")]
+    public GameObject numbersDmg;
+
     PositionConstraint constraint;
     ConstraintSource myConstraintSource;
 
@@ -54,6 +60,7 @@ public class AttributesBase : MonoBehaviour
     float valueLifeBar;
 
     ParticleSystem particle;
+    FadeLight LightEffectBar;
 
     void Start()
     {
@@ -73,6 +80,7 @@ public class AttributesBase : MonoBehaviour
         valueLifeBar = maxLife;
 
         particle = instantiateLifeBar.GetComponent<ParticleSystem>();
+        LightEffectBar = instantiateLifeBar.GetComponent<FadeLight>();
     }
 
     public void applyDmg(float valueDmg)
@@ -80,9 +88,14 @@ public class AttributesBase : MonoBehaviour
         valueLifeBar -= valueDmg;
         fillBar.fillAmount = valueLifeBar / maxLife;
 
+        Vector3 randomX = new Vector3(Random.Range(instantiateLifeBar.transform.position.x - 0.3f, instantiateLifeBar.transform.position.x + 0.3f), instantiateLifeBar.transform.position.y, instantiateLifeBar.transform.position.z);
+        GameObject instValueDmg = Instantiate(numbersDmg, randomX, instantiateLifeBar.transform.rotation) as GameObject;
+        instValueDmg.GetComponentInChildren<TMP_Text>().text = "-" + valueDmg;
+
         alphaBar.alpha = 1;
         camController.ShakeCam();
         particle.Play();
+        LightEffectBar.enabled = true;
         instantiateLifeBar.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
 
         // Debug.Log("life: " + valueLifeBar + " / Receive: " + valueDmg + " / Current life: " + fillBar.fillAmount * 500);

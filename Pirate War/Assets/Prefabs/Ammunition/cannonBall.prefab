@@ -4994,7 +4994,6 @@ MonoBehaviour:
   spawnsInTimer: []
   timerSpawns: 0
   spawnsImpactWoods:
-  - {fileID: 8727875973007597480, guid: 08ddda89314b8ed4b920c4ba6cdd8954, type: 3}
   - {fileID: 303101540322879502, guid: 0a01165dbcb69284eb5a095b5826878a, type: 3}
   - {fileID: 3969297662916924699, guid: efc7b8fc9b80a6c4daa36a611760616c, type: 3}
   - {fileID: 8582401278096765093, guid: e25ae887dfb5e90449afdc72f08a2243, type: 3}
