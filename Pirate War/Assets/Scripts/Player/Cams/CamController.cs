@@ -22,7 +22,7 @@ public class CamController : MonoBehaviour
 
     public void SetNewLookAt(int newTarget)
     {
-        cvCam.LookAt = targets[newTarget];
+        cvCam.Follow = targets[newTarget];
     }
 
     public void ShakeCam()
