@@ -54,11 +54,11 @@ TagManager:
   - name: Water
     uniqueID: 1923852845
     locked: 0
-  - name: FloatingWater
-    uniqueID: 3913854665
-    locked: 0
   - name: Land
     uniqueID: 1481659985
+    locked: 0
+  - name: FloatingWater
+    uniqueID: 3913854665
     locked: 0
   - name: OnLand
     uniqueID: 2286101683

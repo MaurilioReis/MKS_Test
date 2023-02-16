@@ -45,8 +45,8 @@ MonoBehaviour:
   m_ShowMode: 0
   m_Title: Simulator
   m_RootView: {fileID: 7}
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 8096, y: 8096}
+  m_MinSize: {x: 200, y: 221}
+  m_MaxSize: {x: 4000, y: 4021}
   m_Maximized: 1
 --- !u!114 &3
 MonoBehaviour:
@@ -67,7 +67,7 @@ MonoBehaviour:
     width: 1366
     height: 695
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Inspector
   m_RootView: {fileID: 8}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -91,8 +91,8 @@ MonoBehaviour:
     y: 0
     width: 719
     height: 429
-  m_MinSize: {x: 240, y: 221}
-  m_MaxSize: {x: 4000, y: 4021}
+  m_MinSize: {x: 240, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinSize: {x: 240, y: 221}
   m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 100
+  controlID: 118
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,8 +141,8 @@ MonoBehaviour:
     y: 0
     width: 1366
     height: 738
-  m_MinSize: {x: 200, y: 221}
-  m_MaxSize: {x: 4000, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 27}
   m_Panes:
   - {fileID: 27}
@@ -168,10 +168,10 @@ MonoBehaviour:
     y: 0
     width: 1366
     height: 738
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 8096, y: 8096}
+  m_MinSize: {x: 200, y: 221}
+  m_MaxSize: {x: 4000, y: 4021}
   vertical: 0
-  controlID: 76
+  controlID: 55
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 29
+  controlID: 109
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 34
+  controlID: 110
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 35
+  controlID: 111
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -337,8 +337,8 @@ MonoBehaviour:
     y: 0
     width: 252
     height: 387
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -419,8 +419,8 @@ MonoBehaviour:
     y: 0
     width: 460
     height: 645
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 26}
   m_Panes:
   - {fileID: 26}
@@ -492,9 +492,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 08fbffff
-      m_LastClickedID: -1272
-      m_ExpandedIDs: 86f9ffffecf9ffff0afbffffa66d0000
+      m_SelectedIDs: 5a020000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 0afbffffda6d0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -798,9 +798,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.26349044, y: -0.00045559322, z: -0.07146646}
+    m_Target: {x: 14.084534, y: -0.4258903, z: 1.17678}
     speed: 2
-    m_Value: {x: 0.13756983, y: 0.006387918, z: -0.07379324}
+    m_Value: {x: 14.084534, y: -0.4258903, z: 1.17678}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -851,9 +851,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 4.9379725
+    m_Target: 31.507818
     speed: 2
-    m_Value: 5.170652
+    m_Value: 31.507818
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1028,37 +1028,37 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Sprites/Tiles
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Sprites/Tiles
+  - Assets
   m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\Users\Unip\Documents\GitHub\ProjectBlueGravity\MKS_Test\Pirate
     War
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 123}
-    m_SelectedIDs: b8750000
-    m_LastClickedID: 30136
-    m_ExpandedIDs: 00000000fa730000fc730000fe73000000740000a0750000
+    scrollPos: {x: 0, y: 31}
+    m_SelectedIDs: 24740000
+    m_LastClickedID: 29732
+    m_ExpandedIDs: 000000002474000026740000287400002a7400002c7400007094000026960000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: TilePalette
-      m_OriginalName: TilePalette
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 30140
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 16}
     m_SearchString: 
@@ -1072,7 +1072,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fa730000fc730000fe7300000074000002740000
+    m_ExpandedIDs: 000000002474000026740000287400002a7400002c740000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1124,7 +1124,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 1956}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 96
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 190
@@ -1158,7 +1158,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 28130
+  m_LastSelectedObjectID: 28210
 --- !u!114 &25
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1280,8 +1280,8 @@ MonoBehaviour:
     - UnityEditor.DeviceSimulation.ApplicationSettingsPlugin
     pluginStates:
     - '{}'
-    scale: 45
-    fitToScreenEnabled: 0
+    scale: 54
+    fitToScreenEnabled: 1
     rotationDegree: 270
     highlightSafeAreaEnabled: 0
     friendlyName: Xiaomi Redmi 6 Pro
