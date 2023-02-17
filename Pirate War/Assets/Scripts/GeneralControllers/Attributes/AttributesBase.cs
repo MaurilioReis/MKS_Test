@@ -62,6 +62,15 @@ public class AttributesBase : MonoBehaviour
     ParticleSystem particle;
     FadeLight LightEffectBar;
 
+    [Space(10)]
+    [Header("Ships")]
+    public Sprite[] ships;
+
+    [Space(10)]
+    [Header("Flags")]
+    public Sprite[] sailLarge;
+
+
     void Start()
     {
         camController = GameObject.FindGameObjectWithTag("Player").GetComponent<CamController>();
