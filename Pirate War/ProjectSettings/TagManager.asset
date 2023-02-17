@@ -8,19 +8,20 @@ TagManager:
   - Fire
   - Wreckage
   - VerifyAim
+  - EventSystem
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ShipWreckage
+  - ShipScenary
+  - Enemy
+  - Fire
+  - Scenary
+  - Wreckage
   - 
   - 
   - 

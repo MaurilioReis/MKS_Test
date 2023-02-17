@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2085299346910349266}
   - component: {fileID: 2085299346910349265}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SailSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1355474651
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 6e04ce2892eee33438151cb1e05ea89f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2085299347048509758}
   - component: {fileID: 2085299347048509757}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BottonCollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2085299347738752910}
   - component: {fileID: 2085299347738752909}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Nest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -203,7 +203,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1355474651
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 03413ab49d97f8049a0be4b7385f5bf4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -226,7 +226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2085299347876917707}
   - component: {fileID: 2085299347876917706}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Flag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1355474651
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: abfa1eb2b11e2b74bbb9a1ff3e09a6d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -309,7 +309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3260117420114161467}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 98637607751056720}
   - component: {fileID: 2792369735853245314}
   - component: {fileID: 1858532985919913971}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5163,7 +5163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2991187734558256581}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5198,7 +5198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5713646774032696115}
   - component: {fileID: 5713646774032696112}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5259,7 +5259,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1355474651
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 19e8cc3d06bec6f478fb78e7d34c4717, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5284,7 +5284,7 @@ GameObject:
   - component: {fileID: 5713646775614268234}
   - component: {fileID: 5713646775614268229}
   - component: {fileID: 5713646775614268232}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Test
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -5370,6 +5370,18 @@ MonoBehaviour:
   - 4
   - 6
   prefabBar: {fileID: 6715920833550200403, guid: ebcea9538208b8d49be0e09eaa9f5cbe, type: 3}
+  numbersDmgFX: {fileID: 2604747726742724468, guid: 0b297ca1e070cbb4abe01ceebe306616, type: 3}
+  autoGenerateSprites: 1
+  shipSprite: []
+  sailLargeSprite: []
+  sailSmallSprite: []
+  flagSprite: []
+  hull: {fileID: 5713646774032696112}
+  sailLarge: {fileID: 2512314712464323167}
+  sailSmall: {fileID: 2085299346910349265}
+  flag: {fileID: 2085299347876917706}
+  destroyWhenYouDie: []
+  instanceWhenYouDie: []
 --- !u!1 &5888471912084390926
 GameObject:
   m_ObjectHideFlags: 0
@@ -5380,7 +5392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8597890936925678348}
   - component: {fileID: 2512314712464323167}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SailLarge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5443,7 +5455,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1355474651
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 8e32aa204803e31448c0ceb890f72d98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5467,7 +5479,7 @@ GameObject:
   - component: {fileID: 8102160954333717551}
   - component: {fileID: 2397306578946233498}
   - component: {fileID: 4182223468328230372}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

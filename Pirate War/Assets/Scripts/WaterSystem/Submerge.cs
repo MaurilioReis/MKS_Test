@@ -4,20 +4,37 @@ using UnityEngine;
 
 public class Submerge : MonoBehaviour
 {
-
+    [Header(" --------------------------------- CONFIG PARAMETERS")]
+    [Space(15)]
     [Header("min and max time to start submerge")]
     public float minTimeToSubmerge;
     public float maxTimeToSubmerge;
     float timeSubmerge;
 
+    [Space(10)]
     [Header ("percentage chance of increase time to start submerge")]
     [Range(0, 100)]
     public int percentChanceIncreaseTime;
     public float timeIncrease;
 
-    [Header("Sprite to change the layer")]
+    [Space(15)]
+    [Header(" --------------------------------- START SCRIPT")]
+    [Space(15)]
+
+    [Header("Colliders to desactive in start")]
+    public Collider2D[] collidersDesactive;
+
+    [Space(10)]
+    [Header("Colliders to desactive in start")]
+    public GameObject[] gameObjectDesactive;
+
+    [Space(15)]
+    [Header("  --------------------------------- START SUBMERGE")]
+    [Space(15)]
+
+    [Header("Sprite to change the layer in start submerge")]
     public SpriteRenderer[] spritesSubmerge;
-    [Header("Colliders to desactive")]
+    [Header("Colliders to desactive in start submerge")]
     public Collider2D[] colliders;
     [Header("Objects active in start submerge")]
     public GameObject[] fx;
@@ -28,6 +45,28 @@ public class Submerge : MonoBehaviour
 
     void Start()
     {
+        if (collidersDesactive.Length != 0)
+            foreach (Collider2D col in collidersDesactive)
+        {
+            col.enabled = false;
+        }
+
+        if(gameObjectDesactive.Length != 0)
+        foreach (GameObject go in gameObjectDesactive)
+        {
+            if (go != null)
+            {
+                go.transform.parent = null;
+
+                ParticleSystem ps = go.GetComponent<ParticleSystem>();
+
+                if (ps != null)
+                {
+                    ps.Stop(true);
+                }
+            }
+        }
+
         int dice = Random.Range(0, 100);
         if (dice < percentChanceIncreaseTime)
         {
@@ -44,22 +83,26 @@ public class Submerge : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(timeSubmerge);
 
-        foreach (SpriteRenderer sr in spritesSubmerge)
+        if (spritesSubmerge.Length != 0)
+            foreach (SpriteRenderer sr in spritesSubmerge)
         {
             sr.sortingLayerName = "Submerse";
         }
 
-        foreach (Collider2D col in colliders)
+        if (colliders.Length != 0)
+            foreach (Collider2D col in colliders)
         {
             col.enabled = false;
         }
 
-        foreach (GameObject go in fx)
+        if (fx.Length != 0)
+            foreach (GameObject go in fx)
         {
             go.SetActive(true);
         }
 
-        foreach (GameObject go in desactiveInStart)
+        if (desactiveInStart.Length != 0)
+            foreach (GameObject go in desactiveInStart)
         {
             if (go != null)
             {

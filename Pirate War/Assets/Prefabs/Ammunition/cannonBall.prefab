@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1418430171}
   - component: {fileID: 1418430173}
   - component: {fileID: 1418430172}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: TrailCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1510002887
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -4853,7 +4853,7 @@ GameObject:
   - component: {fileID: 4777070124447330998}
   - component: {fileID: 1658845352}
   - component: {fileID: 1108029408}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: cannonBall
   m_TagString: Fire
   m_Icon: {fileID: 0}
@@ -4917,7 +4917,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1510002887
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 21c693d07b79a8a48b0bb8027bd3582d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5023,6 +5023,8 @@ MonoBehaviour:
   maxTimeToSubmerge: 0
   percentChanceIncreaseTime: 0
   timeIncrease: 0
+  collidersDesactive: []
+  gameObjectDesactive: []
   spritesSubmerge:
   - {fileID: 4777070124447330992}
   colliders:
@@ -5041,7 +5043,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4777070124516398641}
   - component: {fileID: 4777070124516398646}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5103,7 +5105,7 @@ TrailRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1510002887
-  m_SortingLayer: 8
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_Time: 0.3
   m_Parameters:
@@ -5183,6 +5185,10 @@ PrefabInstance:
       value: Bublles
       objectReference: {fileID: 0}
     - target: {fileID: 6194255258761055309, guid: 8ccd6ca164fb26841a95d7c8e3de4688, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6194255258761055309, guid: 8ccd6ca164fb26841a95d7c8e3de4688, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -5232,7 +5238,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6194255258761055311, guid: 8ccd6ca164fb26841a95d7c8e3de4688, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6194255258761055311, guid: 8ccd6ca164fb26841a95d7c8e3de4688, type: 3}
       propertyPath: m_SortingLayerID
