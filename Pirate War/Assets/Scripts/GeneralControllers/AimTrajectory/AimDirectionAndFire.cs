@@ -98,31 +98,37 @@ public class AimDirectionAndFire : MonoBehaviour
 
     public IEnumerator Fire()
     {
-        inAtack = true;
-
-        int registerSide = sideAim;
-        spawnOrigins = weapons[registerSide].originsPositionsSpawns;
-        weapons[registerSide].inAtack = true;
-
-        yield return new WaitForSecondsRealtime(timeToSpawn);
-
-        for (int nSpawn = 0; nSpawn < spawnOrigins.Length; nSpawn++)
+        if (basedAttributes.timerCooldown[sideAim] > 0)
         {
-            if (spawnOrigins[nSpawn] != null && spawnOrigins[nSpawn].gameObject.activeSelf)
+            basedAttributes.timerCooldown[sideAim] = 0;
+
+            inAtack = true;
+
+            int registerSide = sideAim;
+            spawnOrigins = weapons[registerSide].originsPositionsSpawns;
+            weapons[registerSide].inAtack = true;
+
+            yield return new WaitForSecondsRealtime(timeToSpawn);
+
+            for (int nSpawn = 0; nSpawn < spawnOrigins.Length; nSpawn++)
             {
-                GameObject fire = Instantiate(weapons[registerSide].ammunition, spawnOrigins[nSpawn].position, spawnOrigins[nSpawn].rotation) as GameObject;
+                if (spawnOrigins[nSpawn] != null && spawnOrigins[nSpawn].gameObject.activeSelf)
+                {
+                    GameObject fire = Instantiate(weapons[registerSide].ammunition, spawnOrigins[nSpawn].position, spawnOrigins[nSpawn].rotation) as GameObject;
 
-                FireParameters scriptFire = fire.GetComponent<FireParameters>();
-                scriptFire.maxDistance = weapons[registerSide].GetComponent<ArmamentParameters>().maxDistance;
-                scriptFire.startPositionOrigin = spawnOrigins[nSpawn].transform.position;
-                scriptFire.directionOrigin = spawnOrigins[nSpawn].right;
+                    FireParameters scriptFire = fire.GetComponent<FireParameters>();
+                    scriptFire.maxDistance = weapons[registerSide].GetComponent<ArmamentParameters>().maxDistance;
+                    scriptFire.startPositionOrigin = spawnOrigins[nSpawn].transform.position;
+                    scriptFire.directionOrigin = spawnOrigins[nSpawn].right;
 
-                // audio
+                    // audio
 
-                yield return new WaitForSecondsRealtime(timeBetweenSpawns);
+                    yield return new WaitForSecondsRealtime(timeBetweenSpawns);
+                }
             }
+            weapons[registerSide].inAtack = false;
+            inAtack = false;
         }
-        weapons[registerSide].inAtack = false;
-        inAtack = false;
+       
     }
 }

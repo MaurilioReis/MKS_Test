@@ -7,7 +7,7 @@ public class CamController : MonoBehaviour
 {
 
     [Header("Cams")]
-    public CinemachineVirtualCamera cvCam;
+    CinemachineVirtualCamera cvCam;
     CinemachineBasicMultiChannelPerlin noise;
 
     [Header("Target")]
@@ -15,7 +15,9 @@ public class CamController : MonoBehaviour
 
     private void Start()
     {
-        GameObject.FindGameObjectWithTag("Player").GetComponent<CamController>();
+        //GameObject.FindGameObjectWithTag("Player").GetComponent<CamController>();
+
+        cvCam = GameObject.FindGameObjectWithTag("MainCamera").transform.parent.gameObject.GetComponent<CinemachineVirtualCamera>();
 
         noise = cvCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }

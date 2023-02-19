@@ -11,11 +11,19 @@ public class Submerge : MonoBehaviour
     public float maxTimeToSubmerge;
     float timeSubmerge;
 
+    [Header("time to start submerge SEABED")]
+    public float timeSubmergeSeabed = 3.5f;
+
     [Space(10)]
     [Header ("percentage chance of increase time to start submerge")]
     [Range(0, 100)]
     public int percentChanceIncreaseTime;
     public float timeIncrease;
+
+    [Space(10)]
+    [Header("Speed submerge")]
+    [Range(0.1f, 3)]
+    public float speed = 1;
 
     [Space(15)]
     [Header(" --------------------------------- START SCRIPT")]
@@ -25,8 +33,12 @@ public class Submerge : MonoBehaviour
     public Collider2D[] collidersDesactive;
 
     [Space(10)]
-    [Header("Colliders to desactive in start")]
+    [Header("GameObjects to desactive in start")]
     public GameObject[] gameObjectDesactive;
+
+    [Space(10)]
+    [Header("GameObjects to destroy in start")]
+    public GameObject[] gameObjectDestroy;
 
     [Space(15)]
     [Header("  --------------------------------- START SUBMERGE")]
@@ -38,6 +50,8 @@ public class Submerge : MonoBehaviour
     public Collider2D[] colliders;
     [Header("Objects active in start submerge")]
     public GameObject[] fx;
+    [Header("Objects instantiate in start submerge")]
+    public GameObject[] instantiateObjects;
     [Header("Objects desactive in start submerge")]
     public GameObject[] desactiveInStart;
 
@@ -66,6 +80,12 @@ public class Submerge : MonoBehaviour
                 }
             }
         }
+
+        if (gameObjectDestroy.Length != 0)
+            foreach (GameObject go in gameObjectDestroy)
+            {
+                Destroy(go);
+            }
 
         int dice = Random.Range(0, 100);
         if (dice < percentChanceIncreaseTime)
@@ -100,6 +120,12 @@ public class Submerge : MonoBehaviour
         {
             go.SetActive(true);
         }
+        
+        if (instantiateObjects.Length != 0)
+            foreach (GameObject go in instantiateObjects)
+        {
+            GameObject instance = Instantiate(go, transform.position, transform.rotation) as GameObject;
+        }
 
         if (desactiveInStart.Length != 0)
             foreach (GameObject go in desactiveInStart)
@@ -118,6 +144,15 @@ public class Submerge : MonoBehaviour
         }
 
         inSubmerge = true;
+
+        yield return new WaitForSecondsRealtime(timeSubmergeSeabed);
+
+        if (spritesSubmerge.Length != 0)
+            foreach (SpriteRenderer sr in spritesSubmerge)
+            {
+                sr.sortingLayerName = "Seabed";
+            }
+
     }
 
 
@@ -125,7 +160,7 @@ public class Submerge : MonoBehaviour
     {
         if (inSubmerge)
         {
-            transform.localScale -= new Vector3(Time.deltaTime/10, Time.deltaTime / 10, Time.deltaTime / 10);
+            transform.localScale -= new Vector3(Time.deltaTime/10 * speed, Time.deltaTime / 10 * speed, Time.deltaTime / 10 * speed);
 
             if (transform.localScale.x <= 0)
             {
