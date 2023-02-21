@@ -23,6 +23,11 @@ public class AimDirectionAndFire : MonoBehaviour
 
 
     [Space(10)]
+    [Header("Sides trigger")]
+    public GameObject[] triggersSide;
+    public GameObject fxPadlock;
+
+    [Space(10)]
     [Header("SPAWNS CONFIG")]
     [Header("Element 0 Canceled / 1 front / 2 left / 3 right / 4 back / 5 neutral")]
 
@@ -30,38 +35,46 @@ public class AimDirectionAndFire : MonoBehaviour
     [Space(10)]
     public ArmamentParameters[] weapons;
 
-    [HideInInspector] public float[] cooldowns;
+    [HideInInspector]
+    public bool inCooldown = false;
 
     [Space(10)]
     Transform[] spawnOrigins;
     public float timeToSpawn = 0.1f;
     public float timeBetweenSpawns = 0.1f;
 
+    int uID;
+
 
     private void Start()
     {
-        cooldowns = basedAttributes.cooldowns;
+        uID = gameObject.GetInstanceID(); // get number instance
+
+        foreach (GameObject go in triggersSide) 
+        {
+            go.name = go.name + uID; // set number instance
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
             
-        if (collision.name == "TriggerFront")    
+        if (collision.name == "TriggerFront" + uID)    
         {
             sideAim = 1;
         }
   
-        if (collision.name == "TriggerLeft")  
+        if (collision.name == "TriggerLeft" + uID)  
         { 
             sideAim = 2;
         }
 
-        if (collision.name == "TriggerRight") 
+        if (collision.name == "TriggerRight" + uID) 
         {      
             sideAim = 3;
         }
  
-        if (collision.name == "TriggerBack")  
+        if (collision.name == "TriggerBack" + uID)  
         {     
             sideAim = 4;
         }
@@ -69,6 +82,7 @@ public class AimDirectionAndFire : MonoBehaviour
 
     private void Update()
     {
+
         if (trajectorysAnim != null)
         {
             if (triggerFire == false)
@@ -98,7 +112,7 @@ public class AimDirectionAndFire : MonoBehaviour
 
     public IEnumerator Fire()
     {
-        if (basedAttributes.timerCooldown[sideAim] > 0)
+        if (basedAttributes.timerCooldown[sideAim] > 0 && inCooldown == false)
         {
             basedAttributes.timerCooldown[sideAim] = 0;
 
@@ -129,6 +143,11 @@ public class AimDirectionAndFire : MonoBehaviour
             weapons[registerSide].inAtack = false;
             inAtack = false;
         }
-       
+        else
+        {
+            Instantiate(fxPadlock, transform.position, transform.rotation);
+        }
+
+
     }
 }

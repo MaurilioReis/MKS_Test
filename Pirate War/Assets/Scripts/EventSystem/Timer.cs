@@ -8,22 +8,62 @@ public class Timer : MonoBehaviour
 
     [Header("Timer level")]
 
-    [Range(5, 9999)]
-    public float timer = 1.30f;
+    public float timer;
     public TMP_Text textTimer;
+    public Animator anim;
 
-    private void FixedUpdate()
+    bool lastSeconds = false;
+
+    private void Update()
     {
         if (timer > 0)
         {
             timer -= Time.deltaTime;
-            textTimer.text = "" + (int)timer;
+
+            string minutes = Mathf.Floor(timer / 60).ToString("00");
+            string seconds = (timer % 60).ToString("00");
+
+            textTimer.text = "" + (string.Format("{0}:{1}", minutes, seconds));
+
+            if (seconds == "30" || seconds == "00")
+            {
+                textTimer.color = new Vector4(+ Time.deltaTime, + Time.deltaTime,- Time.deltaTime, 255);
+                anim.SetBool("Yellow", true);
+            }
+            else
+            {
+                textTimer.color = new Vector4(+Time.deltaTime, +Time.deltaTime, +Time.deltaTime, 255);
+                anim.SetBool("Yellow", false);
+            }
+
+            if (timer <= 5.5f && lastSeconds == false)
+            {
+                StartCoroutine("LastSeconds");
+                lastSeconds = true;
+            }
+        }
+        else if (timer > -2)
+        {
+            textTimer.text = "00:00";
+            timer -= Time.deltaTime;
         }
         else
         {
-            timer = 0;
-            textTimer.text = "END GAME";
+            textTimer.text = "--:--";
+        }
+    }
+
+    IEnumerator LastSeconds()
+    {
+        anim.SetTrigger("Red");
+
+        yield return new WaitForSeconds(1);
+
+        if (timer > 0)
+        {
+            StartCoroutine("LastSeconds");
         }
 
     }
+
 }

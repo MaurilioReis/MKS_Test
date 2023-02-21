@@ -11562,6 +11562,11 @@ MonoBehaviour:
   - {fileID: 17682870}
   - {fileID: 970004465}
   - {fileID: 2142085610}
+  triggersSide:
+  - {fileID: 6033288365073299204}
+  - {fileID: 6033288363687032240}
+  - {fileID: 6033288364110760262}
+  - {fileID: 6033288364036927955}
   weapons:
   - {fileID: 0}
   - {fileID: 5801158656396102179}
@@ -12304,9 +12309,13 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  interfaceAim: {fileID: 40981850}
+  fillAim: {fileID: 40981850}
+  backgroundAim: {fileID: 431291772}
   directionFire: {fileID: 1142648379}
-  textCooldown: {fileID: 825489226}
+  textCooldownFill: {fileID: 825489226}
+  colorLoading: {r: 0, g: 0, b: 0, a: 0}
+  colorDefault: {r: 0, g: 0, b: 0, a: 0}
+  colorComplete: {r: 0, g: 0, b: 0, a: 0}
   prefabBar: {fileID: 6715920833550200403, guid: ebcea9538208b8d49be0e09eaa9f5cbe, type: 3}
   numbersDmgFX: {fileID: 2604747726742724468, guid: 0b297ca1e070cbb4abe01ceebe306616, type: 3}
   autoGenerateSprites: 0

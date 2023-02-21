@@ -260,67 +260,44 @@ public class AttributesBase : MonoBehaviour
 
         // --------------------- Cooldown
 
-        if (timerCooldown[1] < cooldowns[1])
-        {
+        if(timerCooldown[1] < cooldowns[1])
             timerCooldown[1] += Time.deltaTime;
-            backgroundAim.color = Color.red;
-
-            textCooldownFill.color = Color.red;
-        }
-        else
-        {
-            timerCooldown[1] = cooldowns[1];
-            backgroundAim.color = Color.white;
-
-            textCooldownFill.color = Color.green;
-        }
-
-        if (timerCooldown[2] < cooldowns[2])
-        {
+        else { timerCooldown[1] = cooldowns[1]; }
+        
+        if(timerCooldown[2] < cooldowns[2])
             timerCooldown[2] += Time.deltaTime;
-            backgroundAim.color = Color.red;
-
-            textCooldownFill.color = Color.red;
-        }
-        else
-        { 
-            timerCooldown[2] = cooldowns[2];
-            backgroundAim.color = Color.white;
-
-            textCooldownFill.color = Color.green;
-        }
+        else { timerCooldown[2] = cooldowns[2]; }
 
         if (timerCooldown[3] < cooldowns[3])
-        {
             timerCooldown[3] += Time.deltaTime;
-            backgroundAim.color = Color.red;
-
-            textCooldownFill.color = Color.red;
-        }
-        else 
-        { 
-            timerCooldown[3] = cooldowns[3];
-            backgroundAim.color = Color.white;
-
-            textCooldownFill.color = Color.green;
-        }
+        else { timerCooldown[3] = cooldowns[3]; }
 
         if (timerCooldown[4] < cooldowns[4])
-        {
             timerCooldown[4] += Time.deltaTime;
+        else { timerCooldown[4] = cooldowns[4]; }
+
+        if (timerCooldown[directionFire.sideAim] < cooldowns[directionFire.sideAim])
+        {
             backgroundAim.color = Color.red;
 
-            textCooldownFill.color = Color.red;
+            // text porcent
+            if (directionFire.triggerFire)
+            textCooldownFill.color = new Color(255, 255, 255, 255); // alpha 1
+            else { textCooldownFill.color = new Color(255, 255, 255, 0); } // alpha 0
+
+            directionFire.inCooldown = true;
         } 
         else 
         {
-            timerCooldown[4] = cooldowns[4];
             backgroundAim.color = Color.white;
+           
+            textCooldownFill.color = new Color(255, 255, 255, 0); // alpha 0
 
-            textCooldownFill.color = Color.green;
+            directionFire.inCooldown = false;
         }
 
         // --------------------- Dead
+
         if (fillBar.fillAmount <= 0 && isDead == false)         
         {
             isDead = true;
