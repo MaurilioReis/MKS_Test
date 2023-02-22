@@ -8,6 +8,7 @@ public class AimDirectionAndFire : MonoBehaviour
 
     [HideInInspector] public bool triggerFire;
     [HideInInspector] public int sideAim;
+    [HideInInspector] public string sideRL;
     [HideInInspector] public int lockAim;
 
     [Header("attributes based on:")]
@@ -77,6 +78,16 @@ public class AimDirectionAndFire : MonoBehaviour
         if (collision.name == "TriggerBack" + uID)  
         {     
             sideAim = 4;
+        }
+
+        if (collision.name == "TriggerSideR" + uID)
+        {
+            sideRL = "R";
+        }
+
+        if (collision.name == "TriggerSideL" + uID)
+        {
+            sideRL = "L";
         }
     }
 

@@ -56,12 +56,6 @@ public class AttributesBase : MonoBehaviour
     public TMP_Text textCooldownFill;
 
     [Space(10)]
-    [Header("Colors cooldown")]
-    public Color colorLoading;
-    public Color colorDefault;
-    public Color colorComplete;
-
-    [Space(10)]
     CamController camController;
 
     [Space(15)]

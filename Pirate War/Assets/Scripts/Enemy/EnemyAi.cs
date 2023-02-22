@@ -9,16 +9,27 @@ public class EnemyAi : MonoBehaviour
     [Header(" --------------------------------- Dir orientation")]
     [Space(15)]
 
-    public bool front;
+    bool front;
     public Transform frontDir;
+    SpriteRenderer frontDirSprite;
+
     bool frontR;
     public Transform frontRDir;
+    SpriteRenderer frontRDirSprite;
+
     bool frontL;
     public Transform frontLDir;
+    SpriteRenderer frontLDirSprite;
+
     bool R;
     public Transform RDir;
+    SpriteRenderer RDirSprite;
+
     bool L;
     public Transform LDir;
+    SpriteRenderer LDirSprite;
+
+    int lastSide;
 
     [Space(10)]
     public float range = 5;
@@ -54,9 +65,15 @@ public class EnemyAi : MonoBehaviour
 
     private void Start()
     {
+        frontDirSprite = frontDir.GetChild(0).GetComponent<SpriteRenderer>();
+        frontRDirSprite = frontRDir.GetChild(0).GetComponent<SpriteRenderer>();
+        frontLDirSprite = frontLDir.GetChild(0).GetComponent<SpriteRenderer>();
+        RDirSprite = RDir.GetChild(0).GetComponent<SpriteRenderer>();
+        LDirSprite = LDir.GetChild(0).GetComponent<SpriteRenderer>();
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        attB = player.GetComponent<AttributesBase>();
+        attB = gameObject.GetComponent<AttributesBase>();
 
         rb = gameObject.GetComponent<Rigidbody2D>();
 
@@ -77,12 +94,12 @@ public class EnemyAi : MonoBehaviour
         if (hitPlayer) // Front Player
         {
             frontPlayer = true;
-            Debug.DrawRay(transform.position, transform.right, rayCol, hitPlayer.distance);
+           // Debug.DrawRay(transform.position, transform.right, rayCol, hitPlayer.distance);
         }
         else
         {
             frontPlayer = false;
-            Debug.DrawRay(transform.position, transform.right, rayFree, float.PositiveInfinity);
+          //  Debug.DrawRay(transform.position, transform.right, rayFree, float.PositiveInfinity);
         }
 
 
@@ -90,80 +107,90 @@ public class EnemyAi : MonoBehaviour
         if (hitPlayerSurrounding) // Front Player
         {
             frontPlayer = true;
-            Debug.DrawRay(transform.position, transform.right, rayCol, hitPlayerSurrounding.distance);
+          //  Debug.DrawRay(transform.position, transform.right, rayCol, hitPlayerSurrounding.distance);
         }
         else
         {
             frontPlayer = false;
-            Debug.DrawRay(transform.position, transform.right, rayFree, float.PositiveInfinity);
+         //   Debug.DrawRay(transform.position, transform.right, rayFree, float.PositiveInfinity);
         }
 
 
         // ----------------------------------------------------------------------------------------------
 
-        RaycastHit2D hitFrontDir = Physics2D.Raycast(frontDir.position, frontDir.up, range, colMask);
+        RaycastHit2D hitFrontDir = Physics2D.Raycast(transform.position, frontDir.up, range, colMask);
         if(hitFrontDir) // front
         {
             front = true;
-            Debug.DrawRay(frontDir.position, frontDir.up, rayCol, hitFrontDir.distance);
+
+            frontDirSprite.color = Color.red;
         }
         else
         {
             front = false;
-            Debug.DrawRay(frontDir.position, frontDir.up, rayFree, range);
+
+            frontDirSprite.color = Color.green;
         }
 
-        RaycastHit2D hitFrontRDir = Physics2D.Raycast(frontRDir.position, frontRDir.up, range, colMask);
+        RaycastHit2D hitFrontRDir = Physics2D.Raycast(transform.position, frontRDir.up, range, colMask);
         if (hitFrontRDir) // front R
         {
             frontR = true;
-            Debug.DrawRay(frontRDir.position, frontRDir.up, rayCol, hitFrontRDir.distance);
+
+            frontRDirSprite.color = Color.red;
         }
         else
         {
             frontR = false;
-            Debug.DrawRay(frontRDir.position, frontRDir.up, rayFree, range);
+
+            frontRDirSprite.color = Color.green;
         }
 
-        RaycastHit2D hitFrontLDir = Physics2D.Raycast(frontLDir.position, frontLDir.up, range, colMask);
+        RaycastHit2D hitFrontLDir = Physics2D.Raycast(transform.position, frontLDir.up, range, colMask);
         if (hitFrontLDir) // front L
         {
             frontL = true;
-            Debug.DrawRay(frontLDir.position, frontLDir.up, rayCol, hitFrontLDir.distance);
+
+            frontLDirSprite.color = Color.red;
         }
         else
         {
             frontL = false;
-            Debug.DrawRay(frontLDir.position, frontLDir.up, rayFree, range);
+
+            frontLDirSprite.color = Color.green;
         }
 
-        RaycastHit2D hitRDir = Physics2D.Raycast(RDir.position, RDir.up, range, colMask);
+        RaycastHit2D hitRDir = Physics2D.Raycast(transform.position, RDir.up, range, colMask);
         if (hitRDir) // R
         {
             R = true;
-            Debug.DrawRay(RDir.position, RDir.up, rayCol, hitRDir.distance);
+
+            RDirSprite.color = Color.red;
         }
         else
         {
             R = false;
-            Debug.DrawRay(RDir.position, RDir.up, rayFree, range);
+
+            RDirSprite.color = Color.green;
         }
 
-        RaycastHit2D hitLDir = Physics2D.Raycast(LDir.position, LDir.up, range, colMask);
+        RaycastHit2D hitLDir = Physics2D.Raycast(transform.position, LDir.up, range, colMask);
         if (hitLDir) // L
         {
             L = true;
-            Debug.DrawRay(LDir.position, LDir.up, rayCol, hitLDir.distance);
+
+            LDirSprite.color = Color.red;
         }
         else
         {
             L = false;
-            Debug.DrawRay(LDir.position, LDir.up, rayFree, range);
+
+            LDirSprite.color = Color.green;
         }
 
         // ----------------------------------------------------------------------------------------------
 
-        if(distance > 3) // all movimentations if hight distance to player
+        if(distance > 4) // all movimentations if hight distance to player
         {
             if(loopVerifySide == false)
             {
@@ -171,34 +198,105 @@ public class EnemyAi : MonoBehaviour
                 StartCoroutine("LoopVerifySide");
             }
 
-            if (scriptAimDirection.sideAim == 1) // front
+            if (scriptAimDirection.sideAim != 100) // front
             {
-                if (front == false)
+                if (scriptAimDirection.sideRL == "R") // Front R
                 {
-                    rb.AddForce(transform.right * attB.speed, ForceMode2D.Force);
+                    if (front == false)
+                    {
+                        rb.velocity = transform.right * attB.speed / 5;
 
-                    if (frontR == true)
-                    {
-                        transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
+                        if (frontL == true)
+                        {
+                            transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot/2);
+                        }
+                        else if (frontR == true)
+                        {
+                            transform.Rotate(Vector3.forward * Time.deltaTime * speedRot/2);
+                        }
                     }
-                    else if (frontL == true)
+                    else if (frontR == false)
                     {
+                        rb.velocity = transform.right * attB.speed / 10;
+
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
                     }
+                    else if (R == false && frontL == true)
+                    {
+                        lastSide = 1;
+                        transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2);
+                    }
+                    else if (frontL == false)
+                    {
+                        rb.velocity = transform.right * attB.speed / 10;
+
+                        transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
+                    }
+                    else if (L == false)
+                    {
+                        lastSide = 0;
+                        transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
+                    }
+                    else
+                    {
+                        if (lastSide == 1)
+                        {
+                            transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
+                        }
+                        else
+                        {
+                            transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
+                        }
+                    }
                 }
-                else if (frontR == false)
+                else // Front L
                 {
-                    rb.AddForce(transform.right * attB.speed, ForceMode2D.Force);
-                    transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
-                }
-                else if (R == false)
-                {
-                    rb.AddForce(transform.right * attB.speed, ForceMode2D.Force);
-                    transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
-                }
-                else
-                {
-                    transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
+                    if (front == false)
+                    {
+                        rb.velocity = transform.right * attB.speed / 5;
+
+                        if (frontR == true)
+                        {
+                            transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
+                        }
+                        else if (frontL == true)
+                        {
+                            transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2);
+                        }
+                    }
+                    else if (frontL == false)
+                    {
+                        rb.velocity = transform.right * attB.speed / 10;
+
+                        transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
+                    }
+                    else if (L == false && frontR == true)
+                    {
+                        lastSide = 0;
+                        transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
+                    }
+                    else if (frontR == false)
+                    {
+                        rb.velocity = transform.right * attB.speed / 10;
+
+                        transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
+                    }
+                    else if (R == false)
+                    {
+                        lastSide = 1;
+                        transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2);
+                    }
+                    else
+                    {
+                        if (lastSide == 1)
+                        {
+                            transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
+                        }
+                        else
+                        {
+                            transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
+                        }
+                    }
                 }
             }
 
@@ -214,12 +312,12 @@ public class EnemyAi : MonoBehaviour
 
             if (scriptAimDirection.sideAim == 4) // Back
             {
-                transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
+                //transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
             }
 
-            if(front && frontR && frontL && R && L)
+            if (front == true && frontR == true && frontL == true && R == true && L == true)
             {
-                transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
+               
             }
 
         }

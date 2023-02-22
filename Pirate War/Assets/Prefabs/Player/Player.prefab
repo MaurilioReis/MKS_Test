@@ -5771,6 +5771,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1223884746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1223884747}
+  - component: {fileID: 1223884748}
+  m_Layer: 0
+  m_Name: TriggerSideR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1223884747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223884746}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0.0000029504295}
+  m_LocalPosition: {x: 0, y: 0.85, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6033288364780250506}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1223884748
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223884746}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.33
 --- !u!1 &1415588108
 GameObject:
   m_ObjectHideFlags: 0
@@ -11043,6 +11091,54 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &2134117145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2134117146}
+  - component: {fileID: 2134117147}
+  m_Layer: 0
+  m_Name: TriggerSideL
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2134117146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134117145}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0.0000029504295}
+  m_LocalPosition: {x: 0, y: -0.848, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6033288364780250506}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &2134117147
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134117145}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.33
 --- !u!1 &2142085608
 GameObject:
   m_ObjectHideFlags: 0
@@ -11428,7 +11524,7 @@ GameObject:
   - component: {fileID: 6033288363471838599}
   - component: {fileID: 6033288363471838598}
   - component: {fileID: 1142648379}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: MainAim
   m_TagString: VerifyAim
   m_Icon: {fileID: 0}
@@ -11554,6 +11650,7 @@ MonoBehaviour:
   inAtack: 0
   triggerFire: 0
   sideAim: 0
+  sideRL: 
   lockAim: 0
   basedAttributes: {fileID: 6033288364371002739}
   trajectorysAnim: {fileID: 5079081577952097865}
@@ -11567,13 +11664,16 @@ MonoBehaviour:
   - {fileID: 6033288363687032240}
   - {fileID: 6033288364110760262}
   - {fileID: 6033288364036927955}
+  - {fileID: 1223884746}
+  - {fileID: 2134117145}
+  fxPadlock: {fileID: 4595117702989206924, guid: d9b60e986b77f8f4180da2676b22ec81, type: 3}
   weapons:
   - {fileID: 0}
   - {fileID: 5801158656396102179}
   - {fileID: 2494740310616997977}
   - {fileID: 8688745320941346709}
   - {fileID: 3909341247351781540}
-  cooldowns: []
+  inCooldown: 0
   timeToSpawn: 0.1
   timeBetweenSpawns: 0.2
 --- !u!1 &6033288363687032240
@@ -11587,7 +11687,7 @@ GameObject:
   - component: {fileID: 6033288363687032243}
   - component: {fileID: 6033288363687032245}
   - component: {fileID: 6033288363687032244}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: TriggerLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11851,7 +11951,7 @@ GameObject:
   - component: {fileID: 6033288364036927954}
   - component: {fileID: 6033288364036927956}
   - component: {fileID: 6033288364036927957}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: TriggerBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12110,7 +12210,7 @@ GameObject:
   - component: {fileID: 6033288364110760377}
   - component: {fileID: 6033288364110760379}
   - component: {fileID: 6033288364110760378}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: TriggerRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12293,7 +12393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 1000
-  speed: 1
+  speed: 3
   speedRotation: 2
   damage: 50
   resist: 0.1
@@ -12358,6 +12458,7 @@ MonoBehaviour:
   - {fileID: 9212827810423350438, guid: f2ed2094965285144a102b5406ce2f29, type: 3}
   - {fileID: 186151141044234856, guid: 74453eac4d5c71d499175fe8552b4bbe, type: 3}
   - {fileID: 6934473409629643790, guid: f2685e0c2840be94c96922777b5283fc, type: 3}
+  - {fileID: 1289977549615143645, guid: 2beac56985b801c419289bf15520384f, type: 3}
 --- !u!114 &1023917712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12417,7 +12518,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6033288364580172817}
   - component: {fileID: 6033288364580172816}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: RotationVerifySides
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12501,7 +12602,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6033288364780250506}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SidesTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12525,6 +12626,8 @@ Transform:
   - {fileID: 6033288364110760377}
   - {fileID: 6033288364036927954}
   - {fileID: 6033288364580172817}
+  - {fileID: 1223884747}
+  - {fileID: 2134117146}
   m_Father: {fileID: 6033288364371002736}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12623,7 +12726,7 @@ GameObject:
   - component: {fileID: 6033288365073299207}
   - component: {fileID: 6033288365073299206}
   - component: {fileID: 6033288365073299321}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: TriggerFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
