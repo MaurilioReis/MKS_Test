@@ -22,7 +22,7 @@ public class AttributesBase : MonoBehaviour
     [Space(5)]
 
     [Range(1, 10)]
-    public float speedRotation = 2;
+    public float speedRotation = 5;
 
     [Space(5)]
 
@@ -96,6 +96,7 @@ public class AttributesBase : MonoBehaviour
     TypeShips selectSpritesShip; // script in EventSystem
 
     [Space(10)]
+    [Header("Element 3 Full life / 2 Medio life / 1 Low life / 0 Dead")]
     [Header("Ships")]
     public Sprite[] shipSprite;
 
@@ -121,6 +122,9 @@ public class AttributesBase : MonoBehaviour
     [Space(15)]
 
     bool isDead = false;
+
+    [Header("Remove object from lists")]
+    public AttackSpace ScriptAttackSpace;
 
     [Header("Active system submerge")]
     public Submerge[] scriptSubmerge;
@@ -296,7 +300,7 @@ public class AttributesBase : MonoBehaviour
         if (fillBar.fillAmount <= 0 && isDead == false)         
         {
             isDead = true;
-            StartCoroutine("Dead");
+            Dead();
         }
 
         // --------------------- Cooldown
@@ -311,7 +315,7 @@ public class AttributesBase : MonoBehaviour
         }
     }
 
-    IEnumerator Dead()
+    void Dead()
     {
         if (instatiateWhenYouDie.Length != 0)
             foreach (GameObject go in instatiateWhenYouDie)
@@ -331,8 +335,20 @@ public class AttributesBase : MonoBehaviour
                 script.enabled = true;
             }
 
-        yield return new WaitForSeconds(4);
+        foreach (Component comp in gameObject.GetComponents<Component>())
+        {
+            if (!(comp is Submerge) && !(comp is Transform) && !(comp is Collider2D))
+                Destroy(comp);
+        }
 
-        Destroy(instantiateLifeBar);
+        instantiateLifeBar.AddComponent<ConfigDestroy>().timerDestroy = 4;
+        instantiateLifeBar.transform.localScale -= new Vector3(1, 1, 1);
+        secondFillBar.fillAmount = 0;
+        fillBar.fillAmount = 0;
+        alphaBar.alpha = 0.3f;
+
+        gameObject.tag = "Dead";
+
+        ScriptAttackSpace.AutoRemovedFromLists(gameObject);
     }
 }

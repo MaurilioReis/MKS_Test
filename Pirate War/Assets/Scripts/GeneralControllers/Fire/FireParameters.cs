@@ -145,10 +145,11 @@ public class FireParameters : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Dead" || collision.gameObject.tag == "Fire")
         {
             AttributesBase scriptAttributes = collision.gameObject.GetComponent<AttributesBase>();
-            scriptAttributes.applyDmg(dmg);
+            if (scriptAttributes != null)
+                scriptAttributes.applyDmg(dmg);
 
             foreach (GameObject spawn in spawnsImpactWoods)
             {

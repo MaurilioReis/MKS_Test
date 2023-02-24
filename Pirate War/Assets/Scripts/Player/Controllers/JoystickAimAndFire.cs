@@ -52,7 +52,7 @@ public class JoystickAimAndFire : MonoBehaviour
 
     void Update()
     {
-        if(Input.touchCount > 0)
+        if(Input.touchCount > 0 && controllerCam != null)
         {
             for(int numberTouch = 0; numberTouch < Input.touchCount; numberTouch++ )
             {

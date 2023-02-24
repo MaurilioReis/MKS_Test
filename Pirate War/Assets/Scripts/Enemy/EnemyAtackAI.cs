@@ -8,33 +8,56 @@ public class EnemyAtackAI : MonoBehaviour
     public AimDirectionAndFire scriptAimAndFire;
     public AttributesBase scriptParametersBase;
 
+    [Space (10)]
+
+    [Header ("select the minimum and maximum fire frequency.")]
+    [Range(0.1f, 10)]
     public float timeMinAtackFrequency = 0.5f;
+    [Range(0.1f, 10)]
     public float timeMaxAtackFrequency = 1f;
 
     bool fire;
-    void Start()
-    {
-    }
 
-   
+    [Space(10)]
+    [Header("Minimum distance to shoot or explode.")]
+    [Range(0,15)]
+    public float minDistance;
+
     void Update()
     {
-        if (enemyMove.freeToAtack && enemyMove.distance < 3)
+        if (enemyMove.typeBehavior == 1) // if Shooter
         {
-            scriptAimAndFire.triggerFire = true;
-
-            if (scriptAimAndFire.triggerFire == true && fire == false)
+            if (timeMinAtackFrequency > timeMaxAtackFrequency)
             {
-                fire = true;
-                StartCoroutine("randomAtackFrequency");
+                timeMaxAtackFrequency = timeMinAtackFrequency;
             }
 
-            scriptAimAndFire.lockAim = 0;
+            if (enemyMove.freeToAtack && enemyMove.distance < minDistance)
+            {
+                scriptAimAndFire.triggerFire = true;
+
+                if (scriptAimAndFire.triggerFire == true && fire == false)
+                {
+                    fire = true;
+                    StartCoroutine("randomAtackFrequency");
+                }
+
+                scriptAimAndFire.lockAim = 0;
+            }
+            else
+            {
+                scriptAimAndFire.triggerFire = false;
+            }
+
         }
-        else
+        else // ------------------------- if kamikaze exploder
         {
-            scriptAimAndFire.triggerFire = false;
+            if (enemyMove.freeToAtack && enemyMove.distance < minDistance)
+            {
+                scriptParametersBase.applyDmg(scriptParametersBase.maxLife);
+            }
         }
+        
     }
 
     IEnumerator randomAtackFrequency()

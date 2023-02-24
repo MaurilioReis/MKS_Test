@@ -20,8 +20,8 @@ public class Timer : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
-            string minutes = Mathf.Floor(timer / 60).ToString("00");
-            string seconds = (timer % 60).ToString("00");
+            string minutes = Mathf.Floor(timer / 59).ToString("00");
+            string seconds = (timer % 59).ToString("00");
 
             textTimer.text = "" + (string.Format("{0}:{1}", minutes, seconds));
 

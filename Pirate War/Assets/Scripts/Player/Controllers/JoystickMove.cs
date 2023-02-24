@@ -37,7 +37,7 @@ public class JoystickMove : MonoBehaviour
 
     void Update()
     {
-        if(Input.touchCount > 0) // not impact
+        if (Input.touchCount > 0 && rbPlayer != null) // not impact
         {
             for(int numberTouch = 0; numberTouch < Input.touchCount; numberTouch++ )
             {

@@ -9,6 +9,7 @@ TagManager:
   - Wreckage
   - VerifyAim
   - EventSystem
+  - Dead
   layers:
   - Default
   - TransparentFX

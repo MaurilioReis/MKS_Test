@@ -4,97 +4,90 @@ using UnityEngine;
 
 public class EnemyMoveAi : MonoBehaviour
 {
+    [Header(" --------------------------------- Set Enemy Type")]
+    [Space(15)]
+
+    [Header("1 Shooter, 2 kamikaze")]
+    [Range (1,2)]
+    public int typeBehavior; // 1 Shooter, 2 kamikaze
 
     [Space(15)]
     [Header(" --------------------------------- Dir orientation")]
     [Space(15)]
 
-    public bool sensor_Col_Front;
+
     public Transform frontDir;
-    //SpriteRenderer frontDirSprite;
+    [HideInInspector]
+    public bool sensor_Col_Front;
 
-    public bool sensor_Col_Front_R;
     public Transform frontRDir;
-    //SpriteRenderer frontRDirSprite;
+    [HideInInspector]
+    public bool sensor_Col_Front_R;
 
-    public bool sensor_Col_Front_L;
     public Transform frontLDir;
-    //SpriteRenderer frontLDirSprite;
+    [HideInInspector]
+    public bool sensor_Col_Front_L;
 
-    public bool sensor_Col_R;
     public Transform RDir;
-    //SpriteRenderer RDirSprite;
+    [HideInInspector]
+    public bool sensor_Col_R;
 
-    public bool sensor_Col_L;
     public Transform LDir;
-    //SpriteRenderer LDirSprite;
+    [HideInInspector]
+    public bool sensor_Col_L;
 
+    [HideInInspector]
     public bool sideEnemyL;
+    [HideInInspector]
     public bool sideEnemyR;
 
+    [HideInInspector]
     public int lastSide;
 
+    [HideInInspector]
     public bool keepDistance;
+    [HideInInspector]
+    public float distanceArea;
 
+    [HideInInspector]
     public float distance;
 
-    [Space(10)]
-    [Header("Space to atack")]
+    // Space to atack
 
+    [HideInInspector]
     public bool freeToAtack = false;
+    [HideInInspector]
     public bool waitingToAtack = false;
 
     [Space(10)]
-    public float range = 5;
-    public LayerMask colMask;
-    public LayerMask colMaskOnlyPlayer;
-    bool frontPlayer;
-    public float speedRot = 40;
-
-    [Space(10)]
+    [Header("Parameters Orientation")]
     public AimDirectionAndFire scriptAimDirection;
     public GameObject verifySide;
-
-    //[Space(10)]
-    //[Header("Debug")]
-    //public Color rayFree;
-    //public Color rayCol;
-
-    [Space(15)]
-    [Header(" --------------------------------- Set behavior")]
-    [Space(15)]
-    [Header("0  running away, 1 advancing, 2 keep distance, 3 surrounding, 4 kamikaze")]
-
-    public int typeBehavior; // 0  running away, 1 advancing, 2 keep distance, 3 surrounding, 4 kamikaze
-
-    [Space(15)]
-    [Header(" --------------------------------- Find/Dir player")]
-    [Space(15)]
 
     Transform player;
     Rigidbody2D rb;
     AttributesBase attB;
 
+    [Space(10)]
+    float range = 1;
+    public LayerMask colMask;
+    public LayerMask colMaskOnlyPlayer;
+    bool frontPlayer;
+    private float speedRot = 300;
+
     private void Start()
     {
-        //frontDirSprite = frontDir.GetChild(0).GetComponent<SpriteRenderer>();
-        //frontRDirSprite = frontRDir.GetChild(0).GetComponent<SpriteRenderer>();
-        //frontLDirSprite = frontLDir.GetChild(0).GetComponent<SpriteRenderer>();
-        //RDirSprite = RDir.GetChild(0).GetComponent<SpriteRenderer>();
-        //LDirSprite = LDir.GetChild(0).GetComponent<SpriteRenderer>();
-
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         attB = gameObject.GetComponent<AttributesBase>();
 
         rb = gameObject.GetComponent<Rigidbody2D>();
-
-        //scriptAimDirection = gameObject.GetComponent<AimDirectionAndFire>();
     }
 
     void Update()
     {
         distance = Vector2.Distance(transform.position, player.position);
+        speedRot = attB.speedRotation * 30;
 
         // ---------------------------------------------------------------------------------------------- CHECK PLAYER
 
@@ -102,12 +95,10 @@ public class EnemyMoveAi : MonoBehaviour
         if (hitPlayer) // Front Player
         {
             frontPlayer = true;
-           // Debug.DrawRay(transform.position, transform.right, rayCol, hitPlayer.distance);
         }
         else
         {
             frontPlayer = false;
-          //  Debug.DrawRay(transform.position, transform.right, rayFree, float.PositiveInfinity);
         }
 
         // ---------------------------------------------------------------------------------------------- CHECK AROUND
@@ -116,76 +107,57 @@ public class EnemyMoveAi : MonoBehaviour
         if(hitFrontDir) // front
         {
             sensor_Col_Front = true;
-
-            //frontDirSprite.color = Color.red;
         }
         else
         {
             sensor_Col_Front = false;
-
-            //frontDirSprite.color = Color.green;
         }
 
         RaycastHit2D hitFrontRDir = Physics2D.Raycast(transform.position, frontRDir.up, range, colMask);
         if (hitFrontRDir) // front R
         {
             sensor_Col_Front_R = true;
-
-            //frontRDirSprite.color = Color.red;
         }
         else
         {
             sensor_Col_Front_R = false;
-
-            //frontRDirSprite.color = Color.green;
         }
 
         RaycastHit2D hitFrontLDir = Physics2D.Raycast(transform.position, frontLDir.up, range, colMask);
         if (hitFrontLDir) // front L
         {
             sensor_Col_Front_L = true;
-
-            //frontLDirSprite.color = Color.red;
         }
         else
         {
             sensor_Col_Front_L = false;
-
-            //frontLDirSprite.color = Color.green;
         }
 
         RaycastHit2D hitRDir = Physics2D.Raycast(transform.position, RDir.up, range, colMask);
         if (hitRDir) // R
         {
             sensor_Col_R = true;
-
-            //RDirSprite.color = Color.red;
         }
         else
         {
             sensor_Col_R = false;
-
-            //RDirSprite.color = Color.green;
         }
 
         RaycastHit2D hitLDir = Physics2D.Raycast(transform.position, LDir.up, range, colMask);
         if (hitLDir) // L
         {
             sensor_Col_L = true;
-
-            //LDirSprite.color = Color.red;
         }
         else
         {
             sensor_Col_L = false;
-
-            //LDirSprite.color = Color.green;
         }
 
         // ---------------------------------------------------------------------------------------------- MOVES
-        if(waitingToAtack == true)
+
+        if(waitingToAtack == true && keepDistance == false)
         {
-            if(distance < 5)
+            if(distance < distanceArea)
             {
                 if (scriptAimDirection.sideAim != 4)
                 {
@@ -210,7 +182,7 @@ public class EnemyMoveAi : MonoBehaviour
                 }
             }
         }
-        else if (scriptAimDirection.sideAim == 1 || (frontPlayer == true && freeToAtack == true) || keepDistance == true) // Aim front or in Atack
+        else if (scriptAimDirection.sideAim == 1 || (frontPlayer == true && freeToAtack == true && typeBehavior != 2) || keepDistance == true) // Aim front or in Atack or in keepDistance
             {
                 if (scriptAimDirection.sideRL == "R") // Front R
                 {
