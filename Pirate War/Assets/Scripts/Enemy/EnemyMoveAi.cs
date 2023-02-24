@@ -9,36 +9,40 @@ public class EnemyMoveAi : MonoBehaviour
     [Header(" --------------------------------- Dir orientation")]
     [Space(15)]
 
-    public bool front;
+    public bool sensor_Col_Front;
     public Transform frontDir;
-    SpriteRenderer frontDirSprite;
+    //SpriteRenderer frontDirSprite;
 
-    public bool frontR;
+    public bool sensor_Col_Front_R;
     public Transform frontRDir;
-    SpriteRenderer frontRDirSprite;
+    //SpriteRenderer frontRDirSprite;
 
-    public bool frontL;
+    public bool sensor_Col_Front_L;
     public Transform frontLDir;
-    SpriteRenderer frontLDirSprite;
+    //SpriteRenderer frontLDirSprite;
 
-    public bool R;
+    public bool sensor_Col_R;
     public Transform RDir;
-    SpriteRenderer RDirSprite;
+    //SpriteRenderer RDirSprite;
 
-    public bool L;
+    public bool sensor_Col_L;
     public Transform LDir;
-    SpriteRenderer LDirSprite;
+    //SpriteRenderer LDirSprite;
 
     public bool sideEnemyL;
     public bool sideEnemyR;
 
     public int lastSide;
-    public int sideAim;
+
+    public bool keepDistance;
+
+    public float distance;
 
     [Space(10)]
     [Header("Space to atack")]
 
     public bool freeToAtack = false;
+    public bool waitingToAtack = false;
 
     [Space(10)]
     public float range = 5;
@@ -51,10 +55,10 @@ public class EnemyMoveAi : MonoBehaviour
     public AimDirectionAndFire scriptAimDirection;
     public GameObject verifySide;
 
-    [Space(10)]
-    [Header("Debug")]
-    public Color rayFree;
-    public Color rayCol;
+    //[Space(10)]
+    //[Header("Debug")]
+    //public Color rayFree;
+    //public Color rayCol;
 
     [Space(15)]
     [Header(" --------------------------------- Set behavior")]
@@ -73,11 +77,11 @@ public class EnemyMoveAi : MonoBehaviour
 
     private void Start()
     {
-        frontDirSprite = frontDir.GetChild(0).GetComponent<SpriteRenderer>();
-        frontRDirSprite = frontRDir.GetChild(0).GetComponent<SpriteRenderer>();
-        frontLDirSprite = frontLDir.GetChild(0).GetComponent<SpriteRenderer>();
-        RDirSprite = RDir.GetChild(0).GetComponent<SpriteRenderer>();
-        LDirSprite = LDir.GetChild(0).GetComponent<SpriteRenderer>();
+        //frontDirSprite = frontDir.GetChild(0).GetComponent<SpriteRenderer>();
+        //frontRDirSprite = frontRDir.GetChild(0).GetComponent<SpriteRenderer>();
+        //frontLDirSprite = frontLDir.GetChild(0).GetComponent<SpriteRenderer>();
+        //RDirSprite = RDir.GetChild(0).GetComponent<SpriteRenderer>();
+        //LDirSprite = LDir.GetChild(0).GetComponent<SpriteRenderer>();
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -90,9 +94,7 @@ public class EnemyMoveAi : MonoBehaviour
 
     void Update()
     {
-        sideAim = scriptAimDirection.sideAim;
-
-        float distance = Vector2.Distance(transform.position, player.position);
+        distance = Vector2.Distance(transform.position, player.position);
 
         // ---------------------------------------------------------------------------------------------- CHECK PLAYER
 
@@ -113,116 +115,148 @@ public class EnemyMoveAi : MonoBehaviour
         RaycastHit2D hitFrontDir = Physics2D.Raycast(transform.position, frontDir.up, range, colMask);
         if(hitFrontDir) // front
         {
-            front = true;
+            sensor_Col_Front = true;
 
-            frontDirSprite.color = Color.red;
+            //frontDirSprite.color = Color.red;
         }
         else
         {
-            front = false;
+            sensor_Col_Front = false;
 
-            frontDirSprite.color = Color.green;
+            //frontDirSprite.color = Color.green;
         }
 
         RaycastHit2D hitFrontRDir = Physics2D.Raycast(transform.position, frontRDir.up, range, colMask);
         if (hitFrontRDir) // front R
         {
-            frontR = true;
+            sensor_Col_Front_R = true;
 
-            frontRDirSprite.color = Color.red;
+            //frontRDirSprite.color = Color.red;
         }
         else
         {
-            frontR = false;
+            sensor_Col_Front_R = false;
 
-            frontRDirSprite.color = Color.green;
+            //frontRDirSprite.color = Color.green;
         }
 
         RaycastHit2D hitFrontLDir = Physics2D.Raycast(transform.position, frontLDir.up, range, colMask);
         if (hitFrontLDir) // front L
         {
-            frontL = true;
+            sensor_Col_Front_L = true;
 
-            frontLDirSprite.color = Color.red;
+            //frontLDirSprite.color = Color.red;
         }
         else
         {
-            frontL = false;
+            sensor_Col_Front_L = false;
 
-            frontLDirSprite.color = Color.green;
+            //frontLDirSprite.color = Color.green;
         }
 
         RaycastHit2D hitRDir = Physics2D.Raycast(transform.position, RDir.up, range, colMask);
         if (hitRDir) // R
         {
-            R = true;
+            sensor_Col_R = true;
 
-            RDirSprite.color = Color.red;
+            //RDirSprite.color = Color.red;
         }
         else
         {
-            R = false;
+            sensor_Col_R = false;
 
-            RDirSprite.color = Color.green;
+            //RDirSprite.color = Color.green;
         }
 
         RaycastHit2D hitLDir = Physics2D.Raycast(transform.position, LDir.up, range, colMask);
         if (hitLDir) // L
         {
-            L = true;
+            sensor_Col_L = true;
 
-            LDirSprite.color = Color.red;
+            //LDirSprite.color = Color.red;
         }
         else
         {
-            L = false;
+            sensor_Col_L = false;
 
-            LDirSprite.color = Color.green;
+            //LDirSprite.color = Color.green;
         }
 
         // ---------------------------------------------------------------------------------------------- MOVES
-
-        //if() // mode Atack
-        //{
-            
-        //}   aleatorios so pra testar
-        if (scriptAimDirection.sideAim != 56498)// ------------------------------------------------------- all movimentations if hight distance to player
+        if(waitingToAtack == true)
         {
-            if (scriptAimDirection.sideAim == 1 || (frontPlayer == true && freeToAtack == true)) // Aim front or in Atack
+            if(distance < 5)
+            {
+                if (scriptAimDirection.sideAim != 4)
+                {
+                    keepDistance = false;
+
+                    if (scriptAimDirection.sideRL == "R") // Front R
+                    {
+                        rb.velocity = transform.right * attB.speed / 10;
+
+                        transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 3);
+                    }
+                    else
+                    {
+                        rb.velocity = transform.right * attB.speed / 10;
+
+                        transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 3);
+                    }
+                }
+                else
+                {
+                    keepDistance = true;
+                }
+            }
+        }
+        else if (scriptAimDirection.sideAim == 1 || (frontPlayer == true && freeToAtack == true) || keepDistance == true) // Aim front or in Atack
             {
                 if (scriptAimDirection.sideRL == "R") // Front R
                 {
-                    if (front == false)
+                    if (sensor_Col_L == true && sensor_Col_Front_R == false && sensor_Col_R == false)
+                    {
+                        rb.velocity = transform.right * attB.speed / 10;
+
+                        transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 3);
+                    }
+                    else if (sensor_Col_R == true && sensor_Col_Front_L == false && sensor_Col_L == false)
+                    {
+                        rb.velocity = transform.right * attB.speed / 10;
+
+                        transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 3);
+                    }
+                    else if (sensor_Col_Front == false)
                     {
                         rb.velocity = transform.right * attB.speed / 5;
 
-                        if (frontL == true)
+                        if (sensor_Col_Front_L == true)
                         {
                             transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2);
                         }
-                        else if (frontR == true)
+                        else if (sensor_Col_Front_R == true)
                         {
                             transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
                         }
                     }
-                    else if (frontR == false)
+                    else if (sensor_Col_Front_R == false)
                     {
                         rb.velocity = transform.right * attB.speed / 10;
 
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
                     }
-                    else if (R == false && frontL == true)
+                    else if (sensor_Col_R == false && sensor_Col_Front_L == true)
                     {
                         lastSide = 1;
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2);
                     }
-                    else if (frontL == false)
+                    else if (sensor_Col_Front_L == false)
                     {
                         rb.velocity = transform.right * attB.speed / 10;
 
                         transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
                     }
-                    else if (L == false)
+                    else if (sensor_Col_L == false)
                     {
                         lastSide = 0;
                         transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
@@ -241,37 +275,49 @@ public class EnemyMoveAi : MonoBehaviour
                 }
                 else // Front L
                 {
-                    if (front == false)
+                    if (sensor_Col_R == true && sensor_Col_Front_L == false && sensor_Col_L == false)
+                    {
+                        rb.velocity = transform.right * attB.speed / 10;
+
+                        transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 3);
+                    }
+                    else if (sensor_Col_L == true && sensor_Col_Front_R == false && sensor_Col_R == false)
+                    {
+                        rb.velocity = transform.right * attB.speed / 10;
+
+                        transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 3);
+                    }
+                    if (sensor_Col_Front == false)
                     {
                         rb.velocity = transform.right * attB.speed / 5;
 
-                        if (frontR == true)
+                        if (sensor_Col_Front_R == true)
                         {
                             transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
                         }
-                        else if (frontL == true)
+                        else if (sensor_Col_Front_L == true)
                         {
                             transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2);
                         }
                     }
-                    else if (frontL == false)
+                    else if (sensor_Col_Front_L == false)
                     {
                         rb.velocity = transform.right * attB.speed / 10;
 
                         transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
                     }
-                    else if (L == false && frontR == true)
+                    else if (sensor_Col_L == false && sensor_Col_Front_R == true)
                     {
                         lastSide = 0;
                         transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
                     }
-                    else if (frontR == false)
+                    else if (sensor_Col_Front_R == false)
                     {
                         rb.velocity = transform.right * attB.speed / 10;
 
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
                     }
-                    else if (R == false)
+                    else if (sensor_Col_R == false)
                     {
                         lastSide = 1;
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2);
@@ -291,9 +337,9 @@ public class EnemyMoveAi : MonoBehaviour
             }
             else if (scriptAimDirection.sideAim == 3) // Aim Right
             {
-                if (frontR == false)
+                if (sensor_Col_Front_R == false)
                 {
-                    if (front == false)
+                    if (sensor_Col_Front == false)
                     {
                         rb.velocity = transform.right * attB.speed / 10; // move
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 3); // rot
@@ -302,22 +348,21 @@ public class EnemyMoveAi : MonoBehaviour
                     {
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2); // rot
                     }
-                    
                 }
-                else if(R == false)
+                else if(sensor_Col_R == false)
                 {
                     lastSide = 1;
                     transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
                 }
-                else if (front == false)
+                else if (sensor_Col_Front == false)
                 {
                     rb.velocity = transform.right * attB.speed / 5; // move
                 }
-                else if (frontL == false)
+                else if (sensor_Col_Front_L == false)
                 {
                     transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
                 }
-                else if (L == false)
+                else if (sensor_Col_L == false)
                 {
                     lastSide = 0;
                     transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
@@ -337,9 +382,9 @@ public class EnemyMoveAi : MonoBehaviour
             }
             else if (scriptAimDirection.sideAim == 2) // Aim Left
             {
-                if (frontL == false)
+                if (sensor_Col_Front_L == false)
                 {
-                    if (front == false)
+                    if (sensor_Col_Front == false)
                     {
                         rb.velocity = transform.right * attB.speed / 10; // move
                     }
@@ -347,20 +392,20 @@ public class EnemyMoveAi : MonoBehaviour
                     transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2); // rot
 
                 }
-                else if (L == false)
+                else if (sensor_Col_L == false)
                 {
                     lastSide = 0;
                     transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
                 }
-                else if (front == false)
+                else if (sensor_Col_Front == false)
                 {
                     rb.velocity = transform.right * attB.speed / 5; // move
                 }
-                else if (frontR == false)
+                else if (sensor_Col_Front_R == false)
                 {
                     transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2);
                 }
-                else if (R == false)
+                else if (sensor_Col_R == false)
                 {
                     lastSide = 1;
                     transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
@@ -381,29 +426,29 @@ public class EnemyMoveAi : MonoBehaviour
             {
                 if (lastSide == 1)
                 {
-                    if (frontR == false)
+                    if (sensor_Col_Front_R == false)
                     {
-                        if (front == false)
+                        if (sensor_Col_Front == false)
                         {
                             rb.velocity = transform.right * attB.speed / 10; // move
                         }
                         
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2); // rot
                     }
-                    else if (R == false)
+                    else if (sensor_Col_R == false)
                     {
                         lastSide = 1;
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
                     }
-                    else if (front == false)
+                    else if (sensor_Col_Front == false)
                     {
                         rb.velocity = transform.right * attB.speed / 5; // move
                     }
-                    else if (frontL == false)
+                    else if (sensor_Col_Front_L == false)
                     {
                         transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 2);
                     }
-                    else if (L == false)
+                    else if (sensor_Col_L == false)
                     {
                         lastSide = 0;
                         transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
@@ -423,9 +468,9 @@ public class EnemyMoveAi : MonoBehaviour
                 }
                 else
                 {
-                    if (frontL == false)
+                    if (sensor_Col_Front_L == false)
                     {
-                        if (front == false)
+                        if (sensor_Col_Front == false)
                         {
                             rb.velocity = transform.right * attB.speed / 10; // move
                             transform.Rotate(Vector3.forward * Time.deltaTime * speedRot / 3); // rot
@@ -436,20 +481,20 @@ public class EnemyMoveAi : MonoBehaviour
                         }
 
                     }
-                    else if (L == false)
+                    else if (sensor_Col_L == false)
                     {
                         lastSide = 0;
                         transform.Rotate(Vector3.forward * Time.deltaTime * speedRot);
                     }
-                    else if (front == false)
+                    else if (sensor_Col_Front == false)
                     {
                         rb.velocity = transform.right * attB.speed / 5; // move
                     }
-                    else if (frontR == false)
+                    else if (sensor_Col_Front_R == false)
                     {
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot / 2);
                     }
-                    else if (R == false)
+                    else if (sensor_Col_R == false)
                     {
                         lastSide = 1;
                         transform.Rotate(Vector3.forward * -Time.deltaTime * speedRot);
@@ -466,7 +511,7 @@ public class EnemyMoveAi : MonoBehaviour
                         }
                     }
                 }
-            }
-        }
+            }    
+        
     }
 }

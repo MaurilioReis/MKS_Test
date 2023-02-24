@@ -44,6 +44,7 @@ public class AttributesBase : MonoBehaviour
     [Range(0, 10)]
     public float[] cooldowns = new float[5];
     
+    [HideInInspector]
     public float[] timerCooldown = new float[5];
 
 
