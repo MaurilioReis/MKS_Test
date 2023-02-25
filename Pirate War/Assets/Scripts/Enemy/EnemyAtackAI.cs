@@ -54,7 +54,8 @@ public class EnemyAtackAI : MonoBehaviour
         {
             if (enemyMove.freeToAtack && enemyMove.distance < minDistance)
             {
-                scriptParametersBase.applyDmg(scriptParametersBase.maxLife);
+                scriptParametersBase.valueLifeBar = 0;
+                scriptParametersBase.applyDmg(0);
             }
         }
         

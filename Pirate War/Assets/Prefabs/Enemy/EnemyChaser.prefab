@@ -19162,7 +19162,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7228518167152413199}
-  m_LocalRotation: {x: 0.7064075, y: 0.031441484, z: 0.7064074, w: -0.031441487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19170,7 +19170,7 @@ Transform:
   - {fileID: 7228518168264909716}
   m_Father: {fileID: 7228518167359183771}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 60}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!212 &7228518167152413185
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19841,7 +19841,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7228518168681271888}
-  m_LocalRotation: {x: -0.7064075, y: -0.031441484, z: -0.7064074, w: 0.031441487}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1959, y: 0.1959, z: 0.1959}
   m_ConstrainProportionsScale: 0
@@ -20113,7 +20113,7 @@ GameObject:
   - component: {fileID: 86390816057399309}
   - component: {fileID: 5947109067727845454}
   m_Layer: 8
-  m_Name: EnemyKamikaze
+  m_Name: EnemyChaser
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20191,7 +20191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 300
-  speed: 4
+  speed: 10
   speedRotation: 10
   damage: 50
   resist: 0.1
@@ -20211,8 +20211,12 @@ MonoBehaviour:
   backgroundAim: {fileID: 4029122104080941933}
   directionFire: {fileID: 4029122102694301738}
   textCooldownFill: {fileID: 4029122104492050779}
+  constraintLookAt: {fileID: 4029122103526392767}
+  camController: {fileID: 0}
   prefabBar: {fileID: 6715920833550200403, guid: ebcea9538208b8d49be0e09eaa9f5cbe, type: 3}
   numbersDmgFX: {fileID: 2604747726742724468, guid: 0b297ca1e070cbb4abe01ceebe306616, type: 3}
+  fillBar: {fileID: 0}
+  valueLifeBar: 0
   autoGenerateSprites: 1
   shipSprite:
   - {fileID: 21300000, guid: 0a2bb6445f61e4e4189e2748fbf5f8ae, type: 3}
@@ -20238,7 +20242,6 @@ MonoBehaviour:
   sailLarge: {fileID: 704709343528643189}
   sailSmall: {fileID: 4029122103578075131}
   flag: {fileID: 4029122104611744224}
-  ScriptAttackSpace: {fileID: 0}
   scriptSubmerge:
   - {fileID: 4029122104437129311}
   destroyWhenYouDie:
@@ -20247,7 +20250,7 @@ MonoBehaviour:
   - {fileID: 7228518168681271888}
   - {fileID: 7228518167359183770}
   instatiateWhenYouDie:
-  - {fileID: 2620139319855851802, guid: 289fe621ac62a80498c726d24a8ba52c, type: 3}
+  - {fileID: 1641666059216572479, guid: 63facb6a182bd6e4c96a5bf3d69588af, type: 3}
   - {fileID: 3969297662916924699, guid: efc7b8fc9b80a6c4daa36a611760616c, type: 3}
   - {fileID: 2620139319855851802, guid: 289fe621ac62a80498c726d24a8ba52c, type: 3}
   - {fileID: 8582401278096765093, guid: e25ae887dfb5e90449afdc72f08a2243, type: 3}
@@ -20345,6 +20348,7 @@ MonoBehaviour:
   colMaskOnlyPlayer:
     serializedVersion: 2
     m_Bits: 8
+  sg: {fileID: 0}
 --- !u!114 &5947109067727845454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20362,7 +20366,7 @@ MonoBehaviour:
   scriptParametersBase: {fileID: 7228518169106414434}
   timeMinAtackFrequency: 2.5
   timeMaxAtackFrequency: 4.5
-  minDistance: 0.8
+  minDistance: 1
 --- !u!1 &8469250507184251783
 GameObject:
   m_ObjectHideFlags: 0

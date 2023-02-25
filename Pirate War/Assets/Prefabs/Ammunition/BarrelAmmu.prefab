@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59edbc941fb5e74fbefd8e7d1622789, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 200
+  dmg: 0
   startSpeed: 1.5
   distanceSpeed: 0.3
   distanceDirection: {fileID: 0}
@@ -153,8 +153,8 @@ MonoBehaviour:
   spawnsImpactWoods:
   - {fileID: 303101540322879502, guid: 0a01165dbcb69284eb5a095b5826878a, type: 3}
   - {fileID: 303101540322879502, guid: 0a01165dbcb69284eb5a095b5826878a, type: 3}
-  - {fileID: 2620139319855851802, guid: 289fe621ac62a80498c726d24a8ba52c, type: 3}
   - {fileID: 186151141044234856, guid: 74453eac4d5c71d499175fe8552b4bbe, type: 3}
+  - {fileID: 4545331341710609160, guid: d4e05764866fc2843840d667c20779ed, type: 3}
   spawnsEndDistance: []
   parentNull: []
   colliderDisabled:

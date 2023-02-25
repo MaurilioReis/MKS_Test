@@ -56,8 +56,11 @@ public class AttributesBase : MonoBehaviour
     public AimDirectionAndFire directionFire;
     public TMP_Text textCooldownFill;
 
+    public LookAtConstraint constraintLookAt;
+    ConstraintSource myConstraintSourcePlayer;
+
     [Space(10)]
-    CamController camController;
+    public CamController camController;
 
     [Space(15)]
     [Header(" --------------------------------- LifeBar")]
@@ -76,9 +79,11 @@ public class AttributesBase : MonoBehaviour
 
     CanvasGroup alphaBar;
 
-    Image fillBar;
+    [HideInInspector]
+    public Image fillBar;
     Image secondFillBar;
-    float valueLifeBar;
+    [HideInInspector]
+    public float valueLifeBar; // life
 
     //Effects
     ParticleSystem particle;
@@ -123,8 +128,8 @@ public class AttributesBase : MonoBehaviour
 
     bool isDead = false;
 
-    [Header("Remove object from lists")]
-    public AttackSpace ScriptAttackSpace;
+    //[Header("Remove object from lists")]
+    AttackSpace ScriptAttackSpace;
 
     [Header("Active system submerge")]
     public Submerge[] scriptSubmerge;
@@ -137,10 +142,32 @@ public class AttributesBase : MonoBehaviour
     [Header("objects instantiate when you die")]
     public GameObject[] instatiateWhenYouDie;
 
+    SystemGame sg;
+
+    Counter counterPoints;
+
     void Start()
     {
-        camController = GameObject.FindGameObjectWithTag("Player").GetComponent<CamController>();
+        Initialize();
+    }
+   
 
+    public void Initialize()
+    {
+        sg = GameObject.Find("EventSystem").GetComponent<SystemGame>();
+        if (sg.inGame == true)
+        {
+            camController = GameObject.FindGameObjectWithTag("Player").GetComponent<CamController>();
+
+            if(gameObject.tag == "Player")
+            {
+                ScriptAttackSpace = transform.Find("TriggerAtackSpace").GetComponent<AttackSpace>();
+            }
+            else
+            {
+                ScriptAttackSpace = camController.gameObject.GetComponentInChildren<AttackSpace>();
+            }
+        }
         // ----------------------------------------------------------------------------------------------
 
         for (int i = 1; i < cooldowns.Length; i++)
@@ -168,10 +195,18 @@ public class AttributesBase : MonoBehaviour
         if (gameObject.tag == "Player")
         {
             fillBar.color = Color.green;
+
+            sg.lifeBarPlayer = instantiateLifeBar;
         }
         else
         {
             fillBar.color = Color.red;
+
+            instantiateLifeBar.gameObject.tag = "Enemy";
+
+            myConstraintSourcePlayer.sourceTransform = camController.gameObject.transform;
+            myConstraintSourcePlayer.weight = 1;
+            constraintLookAt.SetSource(0, myConstraintSourcePlayer);
         }
 
         // ----------------------------------------------------------------------------------------------
@@ -192,9 +227,11 @@ public class AttributesBase : MonoBehaviour
             flag.sprite = flagSprite[3];
         }
 
+        // ----------------------------------------------------------------------------------------------
+
+        counterPoints = GameObject.FindGameObjectWithTag("EventSystem").GetComponent<Counter>();
 
     }
-
     // ----------------------------------------------------------------------------------------------
 
     public void applyDmg(float valueDmg)
@@ -206,13 +243,20 @@ public class AttributesBase : MonoBehaviour
             fillBar.fillAmount = valueLifeBar / maxLife;
 
             // --------------------- Effect drop txt valueDmg
-            Vector3 randomX = new Vector3(Random.Range(instantiateLifeBar.transform.position.x - 0.3f, instantiateLifeBar.transform.position.x + 0.3f), instantiateLifeBar.transform.position.y, instantiateLifeBar.transform.position.z);
-            GameObject instValueDmg = Instantiate(numbersDmgFX, randomX, instantiateLifeBar.transform.rotation) as GameObject;
-            instValueDmg.GetComponentInChildren<TMP_Text>().text = "-" + valueDmg;
+
+            if (valueDmg > 0)
+            {
+                Vector3 randomX = new Vector3(Random.Range(instantiateLifeBar.transform.position.x - 0.3f, instantiateLifeBar.transform.position.x + 0.3f), instantiateLifeBar.transform.position.y, instantiateLifeBar.transform.position.z);
+                GameObject instValueDmg = Instantiate(numbersDmgFX, randomX, instantiateLifeBar.transform.rotation) as GameObject;
+                instValueDmg.GetComponentInChildren<TMP_Text>().text = "-" + valueDmg;
+            }
+
 
             // --------------------- Visual effects
             alphaBar.alpha = 1;
-            camController.ShakeCam();
+
+            ReloadCamShake();
+
             particle.Play();
             LightEffectBar.enabled = true;
             instantiateLifeBar.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
@@ -226,6 +270,11 @@ public class AttributesBase : MonoBehaviour
             flag.sprite = flagSprite[(int)stageLife];
 
             // Debug.Log("life: " + valueLifeBar + " / Receive: " + valueDmg + " / Current life: " + fillBar.fillAmount * maxLife);
+
+            if (gameObject.tag == "Enemy")
+            {
+                counterPoints.countDamage += (int)valueDmg;
+            }
         }
     }
 
@@ -233,89 +282,102 @@ public class AttributesBase : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // --------------------- Lifebar
-
-        if (instantiateLifeBar != null) 
+        if (fillBar != null)
         {
-            if (alphaBar.alpha > 0.3f)
+            // --------------------- Lifebar
+
+            if (instantiateLifeBar != null)
             {
-                alphaBar.alpha -= Time.deltaTime * 0.3f;
+                if (alphaBar.alpha > 0.3f)
+                {
+                    alphaBar.alpha -= Time.deltaTime * 0.3f;
+                }
+
+                if (fillBar.fillAmount < secondFillBar.fillAmount)
+                {
+                    secondFillBar.fillAmount -= Time.deltaTime * 0.1f;
+                }
+
+                if (instantiateLifeBar.transform.localScale.x > 1)
+                {
+                    instantiateLifeBar.transform.localScale -= new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime);
+                }
+                else if (instantiateLifeBar.transform.localScale.x < 1)
+                {
+                    instantiateLifeBar.transform.localScale = new Vector3(1, 1, 1);
+                }
             }
 
-            if (fillBar.fillAmount < secondFillBar.fillAmount)
+            // --------------------- Cooldown
+
+            if (timerCooldown[1] < cooldowns[1])
+                timerCooldown[1] += Time.deltaTime;
+            else { timerCooldown[1] = cooldowns[1]; }
+
+            if (timerCooldown[2] < cooldowns[2])
+                timerCooldown[2] += Time.deltaTime;
+            else { timerCooldown[2] = cooldowns[2]; }
+
+            if (timerCooldown[3] < cooldowns[3])
+                timerCooldown[3] += Time.deltaTime;
+            else { timerCooldown[3] = cooldowns[3]; }
+
+            if (timerCooldown[4] < cooldowns[4])
+                timerCooldown[4] += Time.deltaTime;
+            else { timerCooldown[4] = cooldowns[4]; }
+
+            if (timerCooldown[directionFire.sideAim] < cooldowns[directionFire.sideAim])
             {
-                secondFillBar.fillAmount -= Time.deltaTime * 0.1f;
+                backgroundAim.color = Color.red;
+
+                // text porcent
+                if (directionFire.triggerFire)
+                    textCooldownFill.color = new Color(255, 255, 255, 255); // alpha 1
+                else { textCooldownFill.color = new Color(255, 255, 255, 0); } // alpha 0
+
+                directionFire.inCooldown = true;
+            }
+            else
+            {
+                backgroundAim.color = Color.white;
+
+                textCooldownFill.color = new Color(255, 255, 255, 0); // alpha 0
+
+                directionFire.inCooldown = false;
             }
 
-            if (instantiateLifeBar.transform.localScale.x > 1)
+            // --------------------- Dead
+
+            if (fillBar.fillAmount <= 0 && isDead == false)
             {
-                instantiateLifeBar.transform.localScale -= new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime);
+                isDead = true;
+                Dead();
             }
-            else if (instantiateLifeBar.transform.localScale.x < 1)
+
+            // --------------------- Cooldown
+
+            fillAim.fillAmount = timerCooldown[directionFire.sideAim] / cooldowns[directionFire.sideAim];
+            float x = fillAim.fillAmount * 100;
+            textCooldownFill.text = (int)x + "%";
+
+            if (timerCooldown[directionFire.sideAim] == cooldowns[directionFire.sideAim])
             {
-                instantiateLifeBar.transform.localScale = new Vector3(1, 1, 1);
+
             }
         }
-
-        // --------------------- Cooldown
-
-        if(timerCooldown[1] < cooldowns[1])
-            timerCooldown[1] += Time.deltaTime;
-        else { timerCooldown[1] = cooldowns[1]; }
-        
-        if(timerCooldown[2] < cooldowns[2])
-            timerCooldown[2] += Time.deltaTime;
-        else { timerCooldown[2] = cooldowns[2]; }
-
-        if (timerCooldown[3] < cooldowns[3])
-            timerCooldown[3] += Time.deltaTime;
-        else { timerCooldown[3] = cooldowns[3]; }
-
-        if (timerCooldown[4] < cooldowns[4])
-            timerCooldown[4] += Time.deltaTime;
-        else { timerCooldown[4] = cooldowns[4]; }
-
-        if (timerCooldown[directionFire.sideAim] < cooldowns[directionFire.sideAim])
+        else
         {
-            backgroundAim.color = Color.red;
-
-            // text porcent
-            if (directionFire.triggerFire)
-            textCooldownFill.color = new Color(255, 255, 255, 255); // alpha 1
-            else { textCooldownFill.color = new Color(255, 255, 255, 0); } // alpha 0
-
-            directionFire.inCooldown = true;
-        } 
-        else 
-        {
-            backgroundAim.color = Color.white;
-           
-            textCooldownFill.color = new Color(255, 255, 255, 0); // alpha 0
-
-            directionFire.inCooldown = false;
-        }
-
-        // --------------------- Dead
-
-        if (fillBar.fillAmount <= 0 && isDead == false)         
-        {
-            isDead = true;
-            Dead();
-        }
-
-        // --------------------- Cooldown
-
-        fillAim.fillAmount = timerCooldown[directionFire.sideAim] / cooldowns[directionFire.sideAim];
-        float x = fillAim.fillAmount * 100;
-        textCooldownFill.text = (int)x + "%";
-
-        if (timerCooldown[directionFire.sideAim] == cooldowns[directionFire.sideAim])
-        {
-
+            Initialize();
         }
     }
 
-    void Dead()
+    void ReloadCamShake()
+    {
+        camController = GameObject.FindGameObjectWithTag("Player").GetComponent<CamController>();
+        camController.ShakeCam();
+    }
+
+    public void Dead()
     {
         if (instatiateWhenYouDie.Length != 0)
             foreach (GameObject go in instatiateWhenYouDie)
@@ -347,7 +409,18 @@ public class AttributesBase : MonoBehaviour
         fillBar.fillAmount = 0;
         alphaBar.alpha = 0.3f;
 
-        gameObject.tag = "Dead";
+        if (gameObject.tag == "Player")
+        {
+            sg.inGame = true;
+            sg.ButtonEndGame();
+        }
+        else
+        {
+            counterPoints.countDeads += 1;
+            gameObject.tag = "Dead";
+            SpawnEnemy se = GameObject.FindGameObjectWithTag("EventSystem").GetComponent<SpawnEnemy>();
+            se.ammountSpawn--;
+        }
 
         ScriptAttackSpace.AutoRemovedFromLists(gameObject);
     }

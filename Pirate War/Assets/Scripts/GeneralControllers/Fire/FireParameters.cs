@@ -147,29 +147,35 @@ public class FireParameters : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Dead" || collision.gameObject.tag == "Fire")
         {
-            AttributesBase scriptAttributes = collision.gameObject.GetComponent<AttributesBase>();
-            if (scriptAttributes != null)
-                scriptAttributes.applyDmg(dmg);
-
-            foreach (GameObject spawn in spawnsImpactWoods)
-            {
-                GameObject intance = Instantiate(spawn, gameObject.transform.position, gameObject.transform.rotation);
-            }
-
-            foreach (GameObject go in parentNull)
-            {
-                go.transform.parent = null;
-
-                ParticleSystem ps = go.GetComponent<ParticleSystem>();
-
-                if (ps != null)
-                {
-                    ps.Stop(true);
-                }
-            }
-
-            Destroy(gameObject);
+            GameObject gameObjectCol = collision.gameObject;
+            StartColision(gameObjectCol);
         }
+    }
+
+    public void StartColision(GameObject gameObjectCol)
+    {
+        AttributesBase scriptAttributes = gameObjectCol.gameObject.GetComponent<AttributesBase>();
+        if (scriptAttributes != null)
+            scriptAttributes.applyDmg(dmg);
+
+        foreach (GameObject spawn in spawnsImpactWoods)
+        {
+            GameObject intance = Instantiate(spawn, gameObject.transform.position, gameObject.transform.rotation);
+        }
+
+        foreach (GameObject go in parentNull)
+        {
+            go.transform.parent = null;
+
+            ParticleSystem ps = go.GetComponent<ParticleSystem>();
+
+            if (ps != null)
+            {
+                ps.Stop(true);
+            }
+        }
+
+        Destroy(gameObject);
     }
 
     IEnumerator TimerSpawns()

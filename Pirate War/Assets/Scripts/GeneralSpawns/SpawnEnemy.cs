@@ -23,30 +23,46 @@ public class SpawnEnemy : MonoBehaviour
     public int minDistanceRespawns;
     public int maxDistanceRespawns;
 
-    public List<Transform> allSpawnsPositions;
+    public GameObject[] allSpawnsPositions;
     public List<Transform> selectSpawns;
+
+    SystemGame sg;
 
     private void Start()
     {
-        StartCoroutine("LoopSpawns");
+        Initialize();
     }
 
-    void Update()
+    public void Initialize()
     {
-        
-    }
+        sg = gameObject.GetComponent<SystemGame>();
+
+        StopCoroutine("LoopSpawns");
+        ammountSpawn = 0;
+
+        allSpawnsPositions = new GameObject[0];
+
+        allSpawnsPositions = GameObject.FindGameObjectsWithTag("Spawn");
+
+        foreach (GameObject go in allSpawnsPositions)
+        {
+            go.GetComponent<SpriteRenderer>().enabled = false;
+        }
+
+        StartCoroutine("LoopSpawns");
+    } 
 
     IEnumerator LoopSpawns()
     {
         selectSpawns = new List<Transform>();
 
-        foreach (Transform positionSpawn in allSpawnsPositions) // Verefy Spawns in range and Added selectedSpawns Lis
+        foreach (GameObject positionSpawn in allSpawnsPositions) // Check Spawns in range and Added selectedSpawns Lis
         {
-            float distance = Vector2.Distance(transform.position, cvCam.transform.position);
+            float distance = Vector2.Distance(positionSpawn.transform.position, cvCam.transform.position);
 
             if (distance > minDistanceRespawns && distance < maxDistanceRespawns)
             {
-                selectSpawns.Add(positionSpawn);
+                selectSpawns.Add(positionSpawn.transform);
             }
         }
 
@@ -58,7 +74,7 @@ public class SpawnEnemy : MonoBehaviour
 
         yield return new WaitForSeconds(timerRandom);
 
-        if(ammountSpawn < maxSpawn)
+        if (sg.inGame == true && ammountSpawn < maxSpawn && prefabSpawn[(int)randomPrefab] != null && selectSpawns[(int)selectRandomSpawn] != null)
         {
             GameObject.Instantiate(prefabSpawn[(int)randomPrefab], selectSpawns[(int)selectRandomSpawn].position, selectSpawns[(int)selectRandomSpawn].rotation);
             ammountSpawn++;

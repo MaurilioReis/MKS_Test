@@ -75,9 +75,24 @@ public class EnemyMoveAi : MonoBehaviour
     bool frontPlayer;
     private float speedRot = 300;
 
+    public SystemGame sg;
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        sg = GameObject.FindGameObjectWithTag("EventSystem").GetComponent<SystemGame>();
+        if (sg.inGame == true)
+        {
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }   
+
+        if (player == null)
+        {
+            Destroy(gameObject);
+        }
 
         attB = gameObject.GetComponent<AttributesBase>();
 
@@ -86,8 +101,23 @@ public class EnemyMoveAi : MonoBehaviour
 
     void Update()
     {
-        distance = Vector2.Distance(transform.position, player.position);
-        speedRot = attB.speedRotation * 30;
+        if (player != null)
+        {
+            distance = Vector2.Distance(transform.position, player.position);
+        }
+        else
+        {
+            Initialize();
+        }
+
+        if (attB != null)
+        {
+            speedRot = attB.speedRotation * 30;
+        }
+        else
+        {
+            Initialize();
+        }
 
         // ---------------------------------------------------------------------------------------------- CHECK PLAYER
 

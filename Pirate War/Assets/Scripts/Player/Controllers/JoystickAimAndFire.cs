@@ -37,6 +37,11 @@ public class JoystickAimAndFire : MonoBehaviour
 
     void Start()
     {
+        Initialize();
+    }
+
+    public void Initialize()
+    {
         touchJoystic = new Touch { fingerId = -1 };
 
         centerJoystick = gameObject.transform.GetChild(2).GetComponent<RectTransform>();
@@ -47,8 +52,9 @@ public class JoystickAimAndFire : MonoBehaviour
         alphaController = gameObject.GetComponent<CanvasGroup>();
 
         controllerCam = GameObject.FindGameObjectWithTag("Player").GetComponent<CamController>();
-    }
 
+        controllerCam.SetNewLookAt(0);
+    }
 
     void Update()
     {

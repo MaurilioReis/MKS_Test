@@ -49,7 +49,12 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            textTimer.text = "--:--";
+            if (textTimer.text != "--:--")
+            {
+                textTimer.text = "--:--";
+                GameObject.FindGameObjectWithTag("EventSystem").GetComponent<SystemGame>().ButtonEndGame();
+            }
+            
         }
     }
 

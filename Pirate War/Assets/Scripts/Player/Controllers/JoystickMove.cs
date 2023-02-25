@@ -21,7 +21,12 @@ public class JoystickMove : MonoBehaviour
 
     void Start()
     {
-        touchJoystic = new Touch {  fingerId = -1 };
+        Initialize();
+    }
+
+    public void Initialize()
+    {
+        touchJoystic = new Touch { fingerId = -1 };
 
         centerJoystick = gameObject.transform.GetChild(0).GetComponent<RectTransform>();
 
@@ -33,7 +38,6 @@ public class JoystickMove : MonoBehaviour
         rbPlayer = player.GetComponent<Rigidbody2D>();
         attributes = player.GetComponent<AttributesBase>();
     }
-
 
     void Update()
     {
@@ -84,7 +88,10 @@ public class JoystickMove : MonoBehaviour
                     float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
                     rbPlayer.transform.rotation = Quaternion.Slerp(rbPlayer.transform.rotation, Quaternion.Euler(0, 0, angle), attributes.speedRotation * sensitivyJoystick * Time.deltaTime);
 
-                    rbPlayer.AddForce (directionJoystick * attributes.speed, ForceMode2D.Force);
+                    rbPlayer.AddForce (rbPlayer.transform.right * attributes.speed * Time.deltaTime * 100, ForceMode2D.Force);
+
+                    //Sensibility
+                    //rbPlayer.AddForce (directionJoystick * attributes.speed, ForceMode2D.Force);
                 }
             }
         }

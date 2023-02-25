@@ -5688,6 +5688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   listEnemys: []
   waitList: []
+  areaSize: 4
   limitList: 4
 --- !u!58 &876233985
 CircleCollider2D:
@@ -6175,6 +6176,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1851231740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1851231741}
+  - component: {fileID: 1851231742}
+  m_Layer: 3
+  m_Name: IdentySpawns
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1851231741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851231740}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6033288364371002736}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1851231742
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851231740}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 30
 --- !u!1 &1918545514
 GameObject:
   m_ObjectHideFlags: 0
@@ -12427,6 +12476,7 @@ Transform:
   - {fileID: 1987155717}
   - {fileID: 730156764}
   - {fileID: 876233984}
+  - {fileID: 1851231741}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12480,8 +12530,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLife: 1000
-  speed: 2
-  speedRotation: 2
+  speed: 5
+  speedRotation: 10
   damage: 50
   resist: 0.1
   cooldowns:
@@ -12500,8 +12550,10 @@ MonoBehaviour:
   backgroundAim: {fileID: 431291772}
   directionFire: {fileID: 1142648379}
   textCooldownFill: {fileID: 825489226}
+  constraintLookAt: {fileID: 0}
   prefabBar: {fileID: 6715920833550200403, guid: ebcea9538208b8d49be0e09eaa9f5cbe, type: 3}
   numbersDmgFX: {fileID: 2604747726742724468, guid: 0b297ca1e070cbb4abe01ceebe306616, type: 3}
+  valueLifeBar: 0
   autoGenerateSprites: 0
   shipSprite:
   - {fileID: 21300000, guid: 0a2bb6445f61e4e4189e2748fbf5f8ae, type: 3}

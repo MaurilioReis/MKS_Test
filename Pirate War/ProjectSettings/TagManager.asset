@@ -10,6 +10,7 @@ TagManager:
   - VerifyAim
   - EventSystem
   - Dead
+  - Spawn
   layers:
   - Default
   - TransparentFX
